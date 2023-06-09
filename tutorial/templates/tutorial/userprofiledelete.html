@@ -1,0 +1,69 @@
+{% extends 'tutorial/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | Profile Delete{% endblock %}
+{% block navbar %}{% include 'tutorial/usernavbar.html' %}{% endblock %}
+{% block card_title %}Hey, {%  endblock %}
+{% block card_info %}My Account Delete{%  endblock %}
+{% block card_info %}@{{request.user.username}}</p>{%  endblock %}
+{% block body %}
+<!-- Main content -->
+<section class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Widget: user widget style 2 -->
+            <div class="card card-widget widget-user-2">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-info">
+                <div class="widget-user-image">
+                  <img class="img-circle elevation-2" src="{{user.pic.url}}" alt="User Avatar">
+                </div>
+                <!-- /.widget-user-image -->
+                <h3 class="widget-user-username">{{request.user.username}}</h3>
+                <p class="widget-user-desc">{%for i in user.skill.all %}
+                <strong class="badge badge-light">&nbsp;{{i.skill}}&nbsp;</strong>{% endfor %}</p>
+              </div>
+              <div class="card-footer p-0">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a href="{% url 'usercourse' %}" class="nav-link">
+                      My Enrolled Course's <span class="float-right badge bg-primary">{{total_user_course}}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'userquiz' %}" class="nav-link" >
+                      My Enrolled Quizze's <span class="float-right badge bg-info">{{total_user_quiz}}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link">
+                      My Rank <span class="float-right badge bg-success">{{total_user_rank}}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link">
+                      My Rating <span class="float-right badge bg-danger">{{total_user_rating}}</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <hr>
+              <div class="card-footer">
+                <div class="text-right">
+                  &nbsp;
+                  <a href="{% url 'userprofile' user.id %}" class="btn btn-primary"><i class="fas fa fa-eye fa-sm text-light"></i>&nbsp;VIEW</a> &nbsp;
+                  <a href="{% url 'account_settings' %}" class="btn btn-info"><i class="fas fa fa-pen fa-sm text-light"></i>&nbsp;EDIT</a>
+                  
+                  &nbsp;
+                  <a href="{% url 'userprofile' user.id %}" class="btn btn-danger"><i class="fas fa fa-eye fa-sm text-light"></i>&nbsp;DELETE</a>
+                </div>
+              </div>
+            </div>
+            <!-- /.widget-user -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->       
+</section>
+<!-- /.content -->
+                        
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'tutorial/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | Quiz Attemp{% endblock %}
+{% block navbar %}{% include 'tutorial/usernavbar.html' %}{% endblock %}
+{% block card_title %}Quiz{%  endblock %}
+{% block card_info %}{{quiz.quiz_name}}{%  endblock %}
+{% block body %}
+{% if qnas %}
+	<form action="" method="POST" >{% csrf_token %}
+
+	  
+        
+
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="card card-default">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-tasks"></i>
+                 Quiz Information  
+                </h3>
+              </div>
+
+	 {% for qna in qnas %} 
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="callout callout-danger">
+                  <h5>{{forloop.counter}}.{{qna.question}}</h5>
+                  <p>
+                  	<hr>
+					<fieldset id="group_{{forloop.counter}}">
+					<div class="row">
+						<div class="col sm-6">
+							<p class="mb-0"> 
+							<div class="custom-control custom-radio">
+							  <input type="radio" id="customRadio{{qna.option_1}}{{forloop.counter}}" class="custom-control-input" name="group_{{forloop.counter}}" value="{{qna.option_1}}" >
+							  <label class="custom-control-label" for="customRadio{{qna.option_1}}{{forloop.counter}}" style="color:	#696969;"> i). &nbsp;{{qna.option_1}}</label>
+							</div>	
+							</p>     
+						</div>
+						<div class="col sm-6">
+							 <p class="mb-0">
+							 	<div class="custom-control custom-radio">
+							  <input type="radio" id="customRadio{{qna.option_2}}{{forloop.counter}}" class="custom-control-input" name="group_{{forloop.counter}}" value="{{qna.option_2}}" >
+							  <label class="custom-control-label" for="customRadio{{qna.option_2}}{{forloop.counter}}" style="color:	#696969;"> ii). &nbsp;{{qna.option_2}}</label>
+							</div> </p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col sm-6">
+							<p class="mb-0"><div class="custom-control custom-radio">
+							  <input type="radio" id="customRadio{{qna.option_3}}{{forloop.counter}}" class="custom-control-input" name="group_{{forloop.counter}}" value="{{qna.option_3}}" style="color:	#696969;"> 
+							  <label class="custom-control-label" for="customRadio{{qna.option_3}}{{forloop.counter}}" style="color:	#696969;"> iii).&nbsp; {{qna.option_3}}</label>
+							</div>  </p>
+						</div>
+						<div class="col sm-6">
+							<p class="mb-0"><div class="custom-control custom-radio">
+							  <input type="radio" id="customRadio{{qna.option_4}}{{forloop.counter}}" class="custom-control-input" name="group_{{forloop.counter}}" value="{{qna.option_4}}" style="color:	#696969;"> 
+							  <label class="custom-control-label" for="customRadio{{qna.option_4}}{{forloop.counter}}" style="color:	#696969;"> iv). &nbsp;{{qna.option_4}}</label>
+							</div>  
+							</p>
+						</div>
+					</div>     
+					</fieldset>
+                  </p>
+                </div>
+              </div>
+              <!-- /.card-body -->
+              {% endfor %}
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <br>
+		
+		 
+		<hr>
+		<div class="row justify-content-md-center">
+			<div class="col col-lg-5">
+				<input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit"> 
+			</div>
+		</div>
+		<hr>
+
+	</form>
+{% else %}
+<h1 style="font-family: monospace;text-align: center;padding-top: 8%;">Sorry, We are working on this....<span class="badge badge-danger">:(</span></h1>
+				<h4 style="font-family: cursive;text-align: center;padding-top: 8%;"><a href="{% url 'tutorial:quizaccess'  quiz.id %}" class="btn btn-warning">Back</a></h4>
+{% endif %}
+						
+{% endblock %}
+
+

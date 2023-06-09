@@ -1,0 +1,105 @@
+{% extends 'tutorial/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | My Courses{% endblock %}
+{% block navbar %}{% include 'tutorial/usernavbar.html' %}{% endblock %}
+{% block card_title %}My{%  endblock %}
+{% block card_info %}Course's{%  endblock %}
+{% block card_total %}{{total_course}}{% endblock %}
+{% block body %}
+{% if courses %}
+ 
+  
+
+    <!-- Main content -->
+    <section class="content">
+    
+      <!-- Default box -->
+      <div class="card card-solid" style="background-color:#ebebeb;">        
+        <div class="card-body pb-0">
+          <div class="row d-flex align-items-stretch">
+            {% for course in courses.object_list %}
+            <div class="col-12 col-sm-6 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                  <a href="{% url 'tutorial:userprofile' course.course.user.id %}" target="_blank">@{{course.course.user.user.username}}</a>
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                     <div class="col-7">
+                      <h2 class="lead"><b><a href="{% url 'tutorial:courseview' course.course.id  %}" >{{course.course.course_name}}</a></b></h2>
+                     
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"></span>  <p class="text-muted text-sm"><b>About: </b> {{course.course.course_description|slice:"70"}} </p></li>
+                       
+                      </ul>
+                    </div>
+                    <div class="col-5 text-center">
+                      <img src="{{course.course.pic.url}}" alt="" class="img">
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col sm-10">
+                             <p class="small">{{course.course.modify_date}}</p>
+                        </div>
+                        <div class="col sm-2">
+                          <div class="text-right"> 
+                                <button class="btn btn-primary btn-sm active" title="{{course.courseenroll_set.all.count}} User Already Erolled" >
+                                              
+                                <i class="fas fa-lg fa-users"></i>&nbsp;  
+                                <span class="badge badge-light">{{course.course.courseenroll_set.all.count}}</span>
+                                </button>                            
+                                 
+                            </div>
+                        </div>
+                    </div>                 
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        
+        <!-- /.card-body -->
+        <div class="card-footer">
+          <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0">
+                {% if courses.has_previous %}
+                     <li class="page-item "><a class="page-link" href="?page={{courses.previous_page_number}}">Previous</a></li>
+                {% endif %}
+                {% for pg in courses.paginator.page_range %}
+                     {% if courses.number == pg %}
+                            <li class="page-item active"><a href="?page={{ pg }}" class="page-link">{{ pg }}</a></li>
+                     {% else %}
+                            <li class="page-item "><a href="?page={{ pg }}" class="page-link">{{ pg }}</a></li>
+                     {% endif %}
+                {% endfor %}
+                {% if courses.has_next %}
+                     <li class="page-item "><a class="page-link" href="?page={{courses.previous_next_number}}">Next</a></li>
+                {% endif %}
+            
+            </ul>
+          </nav>
+        </div>
+        <!-- /.card-footer -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+
+{% else %}
+<h1 style="font-family: monospace;text-align: center;padding-top: 8%;">Sorry, We are working on this....<span class="badge badge-danger">:(</span></h1>
+        <h4 style="font-family: cursive;text-align: center;padding-top: 8%;"><a href="{% url 'index' %}" class="btn btn-warning">Back</a></h4>
+{% endif %}
+
+ 
+
+
+
+
+ 
+
+
+{% endblock %}

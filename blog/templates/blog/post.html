@@ -1,0 +1,269 @@
+{% extends 'blog/base/base.html' %}
+{% load static %}
+{% block tab_title %}ProCoder | Posts Information {% endblock %}
+{% block card_header %}All Posts Information{% endblock %}
+{% block card_body %}
+ 
+             
+         <!-- Add Form -->
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-5">
+            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-xl" >Add Post</button><br>
+          </div>
+        </div>
+        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Post Creation Form</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color:white;">&times;</span>
+                </button>
+              </div>
+              <div class="modal-content">
+                <div class="model-body">     
+                  <div class="container"><br>
+                    <form class="form-horizontal" action="{% url 'blog:postcreate' %}" method="POST"  enctype="multipart/form-data">{% csrf_token %}
+                      <div class="form-row">
+                        <div class="form-group col-md-12">
+                          <label>Post Title : </label>
+                          {{form.post_title}}
+                            
+                        </div>
+                      </div>
+                    
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label>Cateories : </label>
+                        {{form.category}}
+                      </div>
+                    </div>
+                     <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label>Post Conetnt : </label>
+                        {{form.post_content}}
+                      </div>
+                    </div>
+                      <div class="form-row">
+                      <div class="form-group col-md-12 ">
+                        <label class="custom-file-label">Profile Picture</label>
+                          <!-- {{form.post_pic}} -->
+                          <strong class="form-text text-muted">Currently:<a href="{{user.pic.url}}" target="_blank">{{user.post_pic}}</a></strong>              
+                       </div>
+                       </div>
+                      <br>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Post</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- .Add Form -->
+        {% if post %}
+
+        <table id="example1" class="table table-bordered table-striped table-hover">
+          <thead style="text-align: center;">
+            <tr>
+              <th>#</th>
+              <th>Post Title</th>
+              <th>Like</th>
+              <th>Published&nbsp;Date</th>
+              <th>EDIT</th>
+              <th>DELETE</th> 
+            </tr>     
+          </thead>
+          <tbody>
+            {% for i, form in ziped_data %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+             
+              <!-- View -->
+              <td><a href=""  data-toggle="modal" data-target="#bd-example-modal-xl{{i.id}}">{{i.post_title|title|slice:"20"}}...</a>
+                <div class="row">
+                  <div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                      <!-- Widget: user widget style 2 -->
+                      <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Post View </h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" style="color:white;">&times;</span></button>
+                        </div>
+                        <div class="modal-content">
+                          <div class="model-body"><br>
+                            <div class="card-footer p-0">
+                              <div class="container">
+                                <div class="form-row">
+                                <div class="form-group col-md-12">
+                                   <label>Post Title : </label>                                        
+                                   <input type="text" class="form-control" value="{{i.post_title}}" readonly="">
+                                </div>
+                              </div>
+                               <div class="form-row">
+                                <div class="form-group col-md-12">
+                                  <label>Post Content : </label>
+                                  <textarea class="form-control" readonly="">{{i.post_content}}</textarea>
+                                </div>
+                              </div>
+
+                                <div class="form-row">
+                                   {% if i.post_pic is None  %}
+                                  <div class="form-group col-md-12 ">
+                                    <label class="custom-file-label">Post Profile Picture: {{i.post_pic}}</label>
+                                      <strong class="form-text text-muted">Currently:<a href="{{i.post_pic.url}}">{{i.post_pic}}</a></strong>              
+                                   </div>
+                                   {% else %}
+                                   <div class="form-group col-md-12 ">
+                                    <label class="custom-file-label">Post Profile Picture: </label>
+                                      <strong class="form-text text-muted">Currently:Not Image avaablie.</strong>              
+                                   </div>
+                                   {% endif %}
+                                 </div>
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-outline-success" data-dismiss="modal">Okay</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                   
+                </div>
+              </td>
+              <!-- .View -->
+               <td  style="text-align: center;"><span class="badge badge-pill badge-info">&nbsp;{{i.like_set.all.count}}&nbsp;</span></td>
+              <td>{{i.created_date}}</td>
+           
+               
+              <!-- Edit -->
+              <td><button style="text-align: center;" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-xledit{{i.id}}"><i class="fas fa fa-user-edit fa-sm text-light"></i>&nbsp;EDIT</button>
+                <div class="modal fade bd-example-modal-xledit{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeledit{{i.id}}"   aria-hidden="true">
+                  <div class="modal-dialog modal-xl">
+                    <div class="card card-info">
+                      <div class="card-header">
+                        <h3 class="card-title">Post Edit Form</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:white;">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-content">
+                        <div class="model-body"><br>                
+                          <div class="container">
+                            <form class="form-horizontal" action="{% url 'blog:postedit' i.id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                             <div class="form-row">
+                                <div class="form-group col-md-12">
+                                  <label>User Name : </label>
+                                  {{form.post_title}}
+                                </div>                                    
+                              </div>
+                              <div class="form-row">
+                                <div class="form-group col-md-12">
+                                  <label>Categories : </label>
+                                  {{form.category}}
+                                </div>
+                              </div>
+                               <div class="form-row">
+                                <div class="form-group col-md-12">
+                                  <label>Post Conetnt : </label>
+                                  {{form.post_content}}
+                                </div>
+                              </div>
+                                <div class="form-row">
+                                <div class="form-group col-md-12 ">
+                                  <label class="custom-file-label">Profile Picture</label>
+                                    {{form.post_pic}}
+                                    <strong class="form-text text-muted">Currently:<a href="{{i.post_pic.url}}" target="_blank">{{i.post_pic}}</a></strong>              
+                                 </div>
+                                 </div>
+                              <br>   
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-info">Save Change</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <!-- .Edit -->
+              <!-- Delete -->
+              <td>
+                <button style="text-align: center;" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-xldelete{{i.id}}"><i class="fas fa fa-trash-alt fa-sm text-light"></i>&nbsp;DELETE</button>
+                <div class="modal fade bd-example-modal-xldelete{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeldelete{{i.id}}"   aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                  <!-- Widget: user widget style 2 -->
+                 <div class="card card-danger">
+                     <div class="card-header">
+                        <h3 class="card-title">Post Delete Form</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:white;">&times;</span></button>
+                    </div>
+                   
+                    <div class="modal-content">
+                      <div class="model-body"><br>
+                        <div class="card-footer p-0">
+                          <div class="container">
+                          <form class="form-horizontal" action="{% url 'blog:postdelete' i.id %}" method="POST">{% csrf_token %}
+                           
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                   <label>Post Title : </label>                                        
+                                   <input type="text" class="form-control" value="{{i.post_title}}" readonly="">
+                                </div>
+                                                        
+                              </div>
+                               
+
+                             
+                               <div class="form-row">
+                                <div class="form-group col-md-12">
+                                  <label>Post Content : </label>
+                                  <textarea class="form-control" readonly="">{{i.post_content}} </textarea>
+                                    
+                                 
+                                </div>
+                              </div>
+                                <div class="form-row">
+                                <div class="form-group col-md-12 ">
+                                  <label class="custom-file-label">Post Profile Picture: {{i.post_pic}}</label>
+                                    <strong class="form-text text-muted">Currently:<a href="{{i.post_pic.url}}">{{i.post_pic}}</a></strong>              
+                                 </div>
+                                 </div>
+                              <div class="modal-footer">  
+                                <div class="text">
+                                      <p class="card-title" style="font-size: 96%;">Do you want to delete " <i>{{i.post_title}}</i> ".</p>
+                                </div>                              
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                  <button type="submit" class="btn btn-danger">Yes I'm Sure</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <!-- .Delete -->
+            </tr>
+            {% endfor %}
+          </tbody>
+          
+        </table>
+        {% else %}
+          <h6 style="text-align: center;">Sorry, record not exist yet.<span class="badge badge-primary">Click to create new record !</span></h6>
+        {% endif %}
+    
+{% endblock %}
+{% block card_footer %}<b style="color:red;">You shouldn't create, update or delete users post.</b>{% endblock %}

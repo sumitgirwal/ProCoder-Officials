@@ -1,0 +1,272 @@
+{% extends 'tutorial/base/base.html' %}
+{% load static %}
+{% block tab_title %}ProCoder | Users Performance {% endblock %}
+{% block card_header %}All User's Information{% endblock %}
+{% block card_body %}
+  <!-- Add Form -->
+  <div class="row justify-content-md-center">
+     <div class="col col-lg-5">
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-xl" >Add Quiz Enroll</button><br>
+      </div>
+  </div>
+  <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="card card-primary">
+        <div class="card-header">
+        <h3 class="card-title">User Quiz Enroll Form</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true" style="color:white;">&times;</span>
+        </button>
+        </div>
+        <div class="modal-content">
+          <div class="model-body">       
+            <br>
+            <div class="container">
+                <form class="form-horizontal" action="{% url 'tutorial:quiztakencreate' %}" method="POST">{% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="form-group">
+                            <label>User Name : </label>
+                            {{form.user}}
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="form-group">
+                            <label>Quiz :</label>
+                            {{form.quiz}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label>User Enroll :</label>
+                    {{form.user_enrollment}}
+                  </div>
+                  <div class="form-group col-md-6" >
+                    <label>Quiz Enroll :</label>
+                    {{form.quiz_taken}}    
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" >Add Quiz Enroll</button>
+                </div> 
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- .Add Form -->
+  {% if  quiztaken %}
+  <table id="example1" class="table table-bordered table-striped table-hover">
+    <thead style="text-align: center;">
+      <tr>
+        <th>#</th>
+        <th scope="col">User</th>
+        <th scope="col">Quiz</th>
+        <th scope="col">Enrolled</th>
+        <th scope="col">Quiz&nbsp;Taken</th>       
+        <th>EDIT</th>
+        <th>DELETE</th>
+      </tr>     
+    </thead>
+    <tbody>
+      {% for i, form in ziped_data %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <!-- View -->
+        <td><a href=""  data-toggle="modal" data-target="#bd-example-modal-xl{{i.id}}">{{i.user.user.username}}</a>
+            <div class="row">
+                <div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <!-- Widget: user widget style 2 -->
+                        <div class="card card-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-info">
+                                <div class="widget-user-image">
+                                    <img class="img-circle elevation-2" src="{{i.user.pic.url}}" alt="User Avatar">
+                                </div>
+                                <!-- /.widget-user-image -->
+                                <h3 class="widget-user-username">@{{i.user.user.username}}</h3>
+                                 
+                                 
+                            </div>
+                            <div class="modal-content">
+                                <div class="model-body"><br>
+                                    <div class="card-footer p-0">
+                                        <div class="container">
+                                      <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                          <label>Email :</label>
+                                          <input type="email" class="form-control" value="{{i.user.email}}" readonly="" >
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                          <label>Age:</label>
+                                          <input type="text" class="form-control" value="{{i.user.age}}" readonly="">
+                                        </div>
+                                      </div>
+                                      <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                          <label>Joined Date</label>
+                                          <input type="text" class="form-control" value="{{i.user.created_date}}" readonly="">
+                                          </div>
+                                        <div class="form-group col-md-6 ">
+                                          <label>Updated Date</label>
+                                          <input type="text" class="form-control" value="{{i.user.modify_date}}" readonly="">
+                                          </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Okay</button>
+                                      </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                   
+        </td>
+        <!-- .View -->
+        <td> {{i.quiz.quiz_name}}</td>
+        <td style="text-align: center;">{% if i.user_enrollment %}
+        <span class="badge badge-success">YES</span>
+        {% else %}
+        <span class="badge badge-danger">NO</span>
+        {% endif %}</td>
+        <td style="text-align: center;">{% if i.quiz_taken %}
+        <span class="badge badge-success">YES</span>
+        {% else %}
+        <span class="badge badge-danger">NO</span>
+        {% endif %}</td>
+        <!-- Edit -->
+        <td><button style="text-align: center;" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-xledit{{i.id}}"><i class="fas fa fa-user-edit fa-sm text-light"></i>&nbsp;EDIT</button>
+          <div class="modal fade bd-example-modal-xledit{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeledit{{i.id}}"   aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="card card-info">
+                <div class="card-header">
+                  <h3 class="card-title">User Enroll Edit Form</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color:white;">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-content">
+                  <div class="model-body"><br>                
+                    <br>
+                    <div class="container">
+                        <form class="form-horizontal" action="{% url 'tutorial:quiztakenedit' i.id %}" method="POST">{% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <div class="form-group">
+                                <label>User Name : </label>
+                                {{form.user}}
+                              </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <div class="form-group">
+                                <label>Quiz :</label>
+                                {{form.quiz}}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label>User Enroll :</label>
+                              {{form.user_enrollment}}
+                            </div>  
+                            <div class="form-group col-md-6" >
+                              <label>Quiz Enroll :</label>
+                              {{form.quiz_taken}}    
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-info" >Save Changes</button>
+                          </div> 
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <!-- .Edit -->
+        <!-- Delete -->
+        <td>
+            <button style="text-align: center;" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-xldelete{{i.id}}"><i class="fas fa fa-trash-alt fa-sm text-light"></i>&nbsp;DELETE</button>
+            <div class="modal fade bd-example-modal-xldelete{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeldelete{{i.id}}"   aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <!-- Widget: user widget style 2 -->
+                    <div class="card card-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-danger">
+                            <div class="widget-user-image">
+                                <img class="img-circle elevation-2" src="{{i.user.pic.url}}" alt="User Avatar">
+                            </div>
+                            <!-- /.widget-user-image -->
+                            <h3 class="widget-user-username">@{{i.user.user.username}}</h3>
+                           
+                        </div>
+                        <div class="modal-content">
+                            <div class="model-body"><br>
+                                <div class="card-footer p-0">
+                                  <div class="container">
+                                     <form class="form-horizontal" action="{% url 'tutorial:quiztakendelete' i.id %}" method="POST">{% csrf_token %}
+                                     <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                          <div class="form-group">
+                                            <label>User Name : </label>
+                                            <input type="text" class="form-control" value="{{i.user.user.username}}" readonly="">
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                          <div class="form-group">
+                                            <label>Quiz :</label>
+                                            <input type="text" class="form-control" value="{{i.quiz.quiz_name}}" readonly="">
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="form-row">
+                                          <div class="form-group col-md-6">
+                                            <label>User Enroll :</label>
+                                            {% if i.user_enrollment %}
+                                              <h5 class="badge badge-success">YES</h5>
+                                            {% else %}
+                                              <h5 class="badge badge-danger">NO</h5>
+                                            {% endif %}
+                                          </div>  
+                                          <div class="form-group col-md-6" >
+                                            <label>Quiz Enroll :</label>                                  
+                                               {% if i.quiz_taken %}
+                                              <h5 class="badge badge-success">YES</h5>
+                                              {% else %}
+                                              <h5 class="badge badge-danger">NO</h5>
+                                              {% endif %}    
+                                          </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Yes I'm Sure</button>
+                                    </div>
+                                </form>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <!-- .Delete -->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <h6 style="text-align: center;">Sorry, record not exist yet.<span class="badge badge-primary">Click to create new record !</span></h6>
+{% endif %}
+{% endblock %}
+{% block card_footer %}<b style="color: red;">You shouldn't create, update or delete any user information.</b>{% endblock %}

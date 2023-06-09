@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<a class="navbar-brand" href="#">Procoder</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'blog:index' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'tutorial:userdashboard' %}">Hey, <b style="font-family:Lucida Handwriting;font-size: 12px;color:#c9c9c9;">{{request.user.username|upper}}</b></a>
+      </li>
+       {% if not request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'tutorial:login_page' %}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'tutorial:register_page' %}">Register</a>
+      </li> 
+      {% else %}       
+
+
+        
+       {% if request.session.status == "ADMIN" %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:admin_panel' %}"><i class="fas fa-ls fa-user-shield"></i>&nbsp;  Admin Dashboard</a>
+        </li>
+        {% endif %}
+       
+     <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Posts
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+          <a class="dropdown-item" href="{% url 'blog:allpost' %}">Posts</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url 'blog:userpost' %}">My Posts </a>
+        </div>
+      </li>
+    </ul>
+      <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+         <li class="nav-item">
+        <a href="{% url 'tutorial:index' %}" class="nav-link"  data-toggle="tooltip" data-placement="right" title="Tutorial"><b>&nbsp;<i class="fas fa-chalkboard-teacher fa-lg"></i></b> </a>         
+      </li>
+      &nbsp;
+      <li class="nav-item">
+        <a href="{% url 'friendindeed:index' %}" class="nav-link"  data-toggle="tooltip" data-placement="right" title="Indeed"><b>&nbsp;<i class="fas fa-comment-dots fa-lg"></i></b> </a>         
+      </li>
+      &nbsp;
+      <li class="nav-item">
+        <a href="{% url 'tutorial:lockscreen' %}" class="nav-link"  data-toggle="tooltip" data-placement="right" title="Lock Screen"><b>&nbsp;<i class="fas fa-power-off fa-lg"></i></b> </a>         
+      </li>
+      &nbsp;
+      <li class="nav-item">
+        <a href="{% url 'tutorial:logout_page' %}" class="nav-link " data-toggle="tooltip" data-placement="right" title="Logout"><b>&nbsp;<i class="fas fa-sign-out-alt fa-lg"></i></b> </a>  
+      </li>
+      </ul>
+ 
+      {% endif %}
+  </div>
+</nav>

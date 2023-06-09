@@ -1,0 +1,64 @@
+{% extends 'tutorial/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | Quiz View{% endblock %}
+{% block navbar %}{% include 'tutorial/usernavbar.html' %}{% endblock %}
+{% block card_title %}Quiz{%  endblock %}
+{% block card_info %}Information{%  endblock %}
+
+
+{% block body %}
+<div class="card card-widget widget-user">
+    <div class="widget-user-header text-white"style="background: url('{% static quiz.course.pic.url %}') center center;"></div>
+    <div class="widget-user-image">
+        <img class="img-circle" src="{{quiz.course.user.pic.url}}" alt="User Avatar">
+    </div>
+    <br><br><br>
+    <b style="text-align: center;">
+        <h5 class="widget-user-username text-center">{{quiz.quiz_name}}</h5>
+         <p class="widget-user-username text-center">{{quiz.course.course_name}}</p>
+        <p class="widget-user-desc text-center "><i>Provider :<a href="{% url 'tutorial:userprofile' quiz.course.user.id %}" target="_blank"> 
+
+        @{{quiz.course.user.user.username}}   </i></a></p>
+
+    </b><br>
+    <div class="container" style="padding: 2%;">
+        <div class="row">
+            <div class="col sm-6">
+                <p><p class="btn btn-warning btn-sm">
+                <i>  <i class="fas fa-users"></i>&nbsp;Enrolled User's <span class="badge badge-light">{{quiz.quiztaken_set.all.count}}</span></i>  
+                </p>&nbsp;</p>
+            </div>
+            <div class="col sm-6">
+
+                {% if not quizenroll  %}
+                <form action="" method="POST">{% csrf_token %}
+                    <p class="text-right"><button type="submit" class="btn btn-primary btn-sm" name="QUIZ" value="enrollme">
+                    &nbsp;&nbsp;Enroll Me Now !  <i class="far fa-user mr-1"></i>&nbsp;&nbsp; 
+                    </button>&nbsp;</p>
+                </form>                             
+                {% elif quiztaken %}
+                    <p class="text-right"><a   href="{% url 'tutorial:performanceview' %}" class="btn btn-warning btn-sm">
+                    &nbsp;&nbsp;My Performance<i class="fas fa-result mr-1"></i> &nbsp;&nbsp; 
+                    </a>&nbsp;</p>
+                 {% elif not quiztaken  %}                  
+                    <p class="text-right"><a href="{% url 'tutorial:quizattemp' quiz.id %}" class="btn btn-success btn-sm">
+                    &nbsp;&nbsp;Start Quiz Now !<i class="far fa-exam mr-1"></i>&nbsp;&nbsp; 
+                    </a>&nbsp;</p>  
+                {%  endif %}
+            </div>
+        </div>
+    
+        <strong><i class="fas fa-info mr-1"></i> About </strong>
+            <p class="text-muted">
+            {{quiz.quiz_description}}
+            </p>
+            
+             
+             
+            <hr>
+        <strong><i class="far fa-clock mr-1"></i> Published</strong>
+        <p class="text-muted">{{quiz.modify_date}}</p>
+    </div>      
+</div>
+                        
+{% endblock %}

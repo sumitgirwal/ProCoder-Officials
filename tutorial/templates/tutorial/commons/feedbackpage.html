@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel = "icon" href ="https://procodersp.blogspot.com/favicon.ico" type = "image/x-icon"> 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>ProCoder | New Password</title>
+    <style type="text/css">
+      h1{
+        padding-top: 10%;
+        padding-left: 10%;
+        font-size: 3.0rem;
+        padding-top: 2%;
+      }
+      h2{
+        color:;
+        font-size: 1.5rem;
+        padding-left: 10%;
+      }
+      p{
+        color:#008b8b;
+        font-size: 1.2rem;
+        font-family:arial;
+      }
+      a:hover{
+        color: #00688b;
+        text-decoration: none;
+      }
+      .row{
+        padding-left: 1%;
+      }
+      label
+      {
+         color:#000fff; 
+       font-family:Verdana,sans-serif;
+        height:35px;
+        font-size:16px;
+      }
+      .card
+      {
+        padding: 20px;
+      } 
+      input
+      {
+        font-family:Verdana,sans-serif;
+      }
+    </style>
+  </head>
+  {% include 'tutorial/base/messages.html' %}
+  <body  style="background: #00BCD4; color: white;">
+    <div class="container">
+      <br></br>
+      <h1><a href="{% url 'index' %}"></a>ProCoder</h1>
+    <h2>Stay conectent with us !</h2>
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-10">
+        <div class="card" >
+ 
+
+        <form action="" method="POST">{% csrf_token %}
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        {{form.email}}
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+       <div class="form-group">
+    <label for="exampleFormControlTextarea1">Feedback</label>
+      {{form.feedback}}
+      <small id="emailHelp" class="form-text text-muted">What you think about us ?</small>
+    <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> -->
+  </div>
+      <div class="form-group form-check">
+       {{form.notify}}
+        <label class="form-check-label" for="exampleCheck1">Notify me</label>
+      </div>
+      <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+      <a  href="{% url 'tutorial:index' %}" class="btn btn-warning btn-sm">Cancel</a>
+    </form>
+    </div>   
+      </div>
+      </div>
+
+
+     
+
+    
+
+    </div>
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
+  
+ 
+                

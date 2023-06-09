@@ -1,0 +1,449 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>ProCoder | Blog Admin Dashboard</title>
+  {% include 'blog/base/headerlink.html' %}
+  <style type="text/css">
+    .img {
+    float:  left;
+    width:  80px;
+    height: 80px;
+    background-size: cover;
+     border-radius: 50%;
+      border:5px solid #ebebeb;
+}
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<div class="wrapper">
+ {% include 'blog/base/sidebar.html' %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Admin Dashboard</h1>
+          </div> 
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'blog:index' %}">Home</a></li>
+              <li class="breadcrumb-item
+              "> Admin Dashborad </li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+ 
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Users</span>
+                <span class="info-box-number">
+                  {{total_users}}
+                  
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-check"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Users Active</span>
+                <span class="info-box-number">{{total_active_users}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-times"></i></span>
+
+              <div class="info-box-content">
+               <span class="info-box-text">Users Deactive</span>
+                <span class="info-box-number">{{total_deactive_users}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-comment"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Feedbacks</span>
+                <span class="info-box-number">{{total_feedback}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-book"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Posts</span>
+                <span class="info-box-number">
+                  {{total_posts}}
+                  
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Like</span>
+                <span class="info-box-number">{{total_likes}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-comments"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Comments</span>
+                <span class="info-box-number">{{total_comments}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-paste"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Categories</span>
+                <span class="info-box-number">{{total_categorys}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+   
+      {% if users %}
+            <div class="row">
+              <div class="col-md-12">
+                <!-- USERS LIST -->
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Latest {{users.count}} New Members</h3>
+
+                    <div class="card-tools">
+                      <span class="badge badge-danger">{{users.count}} New Members</span>
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                   <div class="row" style="text-align: center;">
+                    {% for i  in users %}
+                      <div class="col-12 col-sm-6 col-md-4 " style="padding: 10px;">
+                        <div class="card bg-dark">
+                          <div class="card-body">
+                            <img src="{{i.pic.url}}" alt="" class="img"><br>
+                            <h4 class="lead" style="color:#a8a8a8;">
+                              <a href="{% url 'tutorial:userprofile' i.id %}" class="product-title" target="_blank" style="color:#707070;"><b>@{{i.user.username}}</a></b>
+                            </h4>
+                             
+                          </div>
+                        
+                          
+                        </div>
+                      </div>
+                      
+                    {% endfor %}
+                  </div>
+                  </div>
+                  <!-- /.card-body -->                  
+                   <div class="card-footer text-center">
+                    <a href="{% url 'blog:user' %}">View All Users</a>
+                  </div>
+                  <!-- /.card-footer -->
+                </div>
+                <!--/.card -->                
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            {% endif %}
+
+          {% if posts %}
+            <div class="row">
+          <div class="col-md-6">
+               
+              <!-- PRODUCT LIST -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recently {{posts.count}} Post</h3>
+
+                <div class="card-tools">
+                   <span class="badge badge-danger">{{posts.count}} New User</span>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                  {% for post in posts %}
+                  <li class="item">
+                    <div class="product-img">
+                      <img src="{% static post.user.pic.url %}" alt="Post Image" class="img-size-50">
+                    </div>
+                    <div class="product-info">
+                      <a href="{% url 'tutorial:userprofile' post.user.id %}" class="product-title" target="_blank">@{{post.user.user.username}}
+                        <span class="badge badge-warning float-right">{{post.created_date}}</span></a>
+                      <span class="product-description">
+                        <a href="{% url 'blog:postview' post.id %}" target="_blank">{{post.post_content|slice:'30'}}...
+                     </a> </span>
+                    </div>
+                  </li>
+                  {% endfor %}
+                  
+                 
+                  <!-- /.item -->
+                </ul>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer text-center">
+                <a href="{% url 'blog:allpost' %}" class="uppercase">View All Posts</a>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+        
+          <!-- /.col -->
+         
+          </div>
+          <!-- /.col -->
+
+          {% if categorys %}
+             <div class="col-md-6">
+            <!-- PRODUCT LIST -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recently {{categorys.count}} Categories</h3>
+
+                <div class="card-tools">
+                   <span class="badge badge-danger">{{categorys.count}} New Categories</span>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                  {% for category in categorys %}
+                  <li class="item">
+                     
+                    <div class="product-info">
+                     {{category.category|title}}
+                        <span class="badge badge-warning float-right">{{category.created_date}}</span>
+                       
+                    </div>
+                  </li>
+                  {% endfor %}
+                  
+                 
+                  <!-- /.item -->
+                </ul>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer text-center">
+                <a href="{% url 'blog:category' %}" class="uppercase">View All Categories</a>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+              </div>
+               {% endif %}
+
+        </div>
+        <!-- /.row -->
+     {% endif %}
+ 
+          {% if users %}
+            <div class="row">
+
+          {% if comments %}
+             <div class="col-md-6">
+            <!-- PRODUCT LIST -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recently {{comments.count}} Comments</h3>
+
+                <div class="card-tools">
+                   <span class="badge badge-danger">{{posts.count}} New Comment</span>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                  {% for comment in comments %}
+                  <li class="item">
+                    <div class="product-img">
+                      <img src="{% static comment.user.pic.url %}" alt="Post Image" class="img-size-50">
+                    </div>
+                    <div class="product-info">
+                      <a href="{% url 'tutorial:userprofile' comment.user.id %}" class="product-title" target="_blank">@{{comment.user.user.username}}
+                        <span class="badge badge-warning float-right">{{comment.created_date}}</span></a>
+
+                        
+                      <span class="product-description">
+                        <a href="{% url 'blog:postview' comment.post.id %}"  target="_blank"> {{comment.comment|slice:'30'}}...</a>
+                      </span>
+                    </div>
+                  </li>
+                  {% endfor %}
+                  
+                 
+                  <!-- /.item -->
+                </ul>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer text-center">
+                <a href="{% url 'blog:comment' %}" class="uppercase">View All Comments</a>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+              </div>
+               {% endif %}
+
+
+            {% if likes %}
+             <div class="col-md-6">
+            <!-- PRODUCT LIST -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recently {{likes.count}} Like</h3>
+
+                <div class="card-tools">
+                   <span class="badge badge-danger">{{likes.count}} New Likes</span>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                  {% for like in likes %}
+                  <li class="item">
+                    <div class="product-img">
+                      <img src="{{like.user.pic.url}}" alt="Course Image" class="img-size-50">
+                    </div>
+                    <div class="product-info">
+                      <a href="{% url 'tutorial:userprofile' like.user.id %}" class="product-title" target="_blank">@{{like.user.user.username}}
+                        <span class="badge badge-warning float-right">{{like.created_date}}</span></a>
+                        <span class="product-description"><a href="{% url 'blog:postview'  like.post.id  %}" target="_blank">{{like.post.post_title|slice:'30'}}...</a>
+                      </span>
+                    </div>
+                  </li>
+                  {% endfor %}
+                  
+                 
+                  <!-- /.item -->
+                </ul>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer text-center">
+                <a href="" class="uppercase">View All Likes</a>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+              </div>
+               {% endif %}
+
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            {% endif %}
+
+
+ 
+ 
+      </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+
+
+
+
+{% include 'blog/base/footer.html' %}
+{% include 'blog/base/footerlink.html' %}

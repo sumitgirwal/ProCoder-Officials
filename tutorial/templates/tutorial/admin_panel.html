@@ -1,0 +1,617 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>ProCoder |  Admin Dashboard</title>
+  {% include 'tutorial/base/headerlink.html' %}
+    <style type="text/css">
+    .img {
+    float:  left;
+    width:  80px;
+    height: 80px;
+    background-size: cover;
+     border-radius: 50%;
+      border:5px solid #ebebeb;
+}
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<div class="wrapper">
+ {% include 'tutorial/base/sidebar.html' %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Admin Dashboard</h1>
+          </div> 
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+               <h5 class="m-0 text-dark" style="color:#a6a6a6;">Export Data Base</h5>&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'tutorial:export_csv' %}" title="Download CSV File" class="btn btn-primary btn-sm"><i class="fas fa-download"></i> CSV File</a>&nbsp;
+                <a href="{% url 'tutorial:export_xls' %}" title="Download Excel File" class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Excel File</a>
+               
+                &nbsp;&nbsp;&nbsp;
+                
+              
+              
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+ 
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Users</span>
+                <span class="info-box-number">
+                  {{total_users}}
+                  
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-check"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Users Active</span>
+                <span class="info-box-number">{{total_active_users}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-times"></i></span>
+
+              <div class="info-box-content">
+               <span class="info-box-text">Users Deactive</span>
+                <span class="info-box-number">{{total_deactive_users}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-comment"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Feedbacks</span>
+                <span class="info-box-number">{{total_feedback}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-book"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Courses</span>
+                <span class="info-box-number">
+                  {{total_courses}}
+                  
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-book-reader"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Enrolled Users In Courses</span>
+                <span class="info-box-number">{{total_course_enrolled}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-sticky-note"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Topics</span>
+                <span class="info-box-number">{{total_topic}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-paste"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Contents</span>
+                <span class="info-box-number">{{total_content}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-tasks"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Quizzes</span>
+                <span class="info-box-number">
+                  {{total_quizs}}
+                  
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-address-book"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Enrolled User In Quizzes</span>
+                <span class="info-box-number">{{total_quiz_taken}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-id-card"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Quiz Attempted</span>
+                <span class="info-box-number">{{total_quizattempted}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-question"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Questions</span>
+                <span class="info-box-number">{{total_qnas}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          
+        </div>
+        <!-- /.row -->
+               {% if users %}
+            <div class="row">
+              <div class="col-md-12">
+                <!-- USERS LIST -->
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Latest {{users.count}} New Members</h3>
+
+                    <div class="card-tools">
+                      <span class="badge badge-danger">{{users.count}} New Members</span>
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body p-0">
+                    <div class="row" style="text-align: center;">
+                    {% for i  in users %}
+                      <div class="col-12 col-sm-6 col-md-4 " style="padding: 10px;">
+                        <div class="card bg-dark">
+                          <div class="card-body">
+                            <img src="{{i.pic.url}}" alt="" class="img"><br>
+                            <h4 class="lead" style="color:#a8a8a8;">
+                              <a href="{% url 'tutorial:userprofile' i.id %}" class="product-title" target="_blank" style="color:#707070;"><b>@{{i.user.username}}</a></b>
+                            </h4>
+                             
+                          </div>
+                        
+                          
+                        </div>
+                      </div>
+                      
+                    {% endfor %}
+                  </div>
+                  </div>
+                  <!-- /.card-body -->
+                  
+                   <div class="card-footer text-center">
+                    <a href="{% url 'tutorial:user' %}">View All Users</a>
+                  </div>
+                  
+
+                  <!-- /.card-footer -->
+                </div>
+                <!--/.card -->                
+              </div>
+            
+
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            {% endif %}
+
+          {% if users %}
+            <div class="row">
+
+          {% if courseenroll %}
+             <div class="col-md-6">
+            <!-- PRODUCT LIST -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recently {{courseenroll.count}} Enrolled Courses</h3>
+
+                <div class="card-tools">
+                   <span class="badge badge-danger">{{courseenroll.count}} New User</span>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                  {% for course in courseenroll %}
+                  <li class="item">
+                    <div class="product-img">
+                      <img src="{% static course.user.pic.url %}" alt="Course Image" class="img-size-50">
+                    </div>
+                    <div class="product-info">
+                      <a href="{% url 'tutorial:userprofile' course.user.id  %}" class="product-title" target="_blank">@{{course.user.user.username}}
+                        <span class="badge badge-warning float-right">{{course.created_date}}</span></a>
+                      <span class="product-description">
+                        {{course.course.course_name|slice:'30'}}...
+                      </span>
+                    </div>
+                  </li>
+                  {% endfor %}
+                  
+                 
+                  <!-- /.item -->
+                </ul>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer text-center">
+                <a href="{% url 'tutorial:quiztaken' %}" class="uppercase">View All Enrolled Users In Courses</a>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+              </div>
+               {% endif %}
+
+
+            {% if quiztaken %}
+             <div class="col-md-6">
+            <!-- PRODUCT LIST -->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recently {{quiztaken.count}} Enrolled Quizzes</h3>
+
+                <div class="card-tools">
+                   <span class="badge badge-danger">{{quiztaken.count}} New User</span>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <ul class="products-list product-list-in-card pl-2 pr-2">
+                  {% for quiz in quiztaken %}
+                  <li class="item">
+                    <div class="product-img">
+                      <img src="{% static quiz.user.pic.url %}" alt="Course Image" class="img-size-50">
+                    </div>
+                    <div class="product-info">
+                      <a href="{% url 'tutorial:userprofile' quiz.user.id %}" class="product-title" target="_blank">@{{quiz.user.user.username}}
+                        <span class="badge badge-warning float-right">{{quiz.user.created_date}}</span></a>
+                      <span class="product-description">
+                        {{quiz.quiz.quiz_name|slice:'60'}}...
+                      </span>
+                    </div>
+                  </li>
+                  {% endfor %}
+                  
+                 
+                  <!-- /.item -->
+                </ul>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer text-center">
+                <a href="{% url 'tutorial:quiztaken' %}" class="uppercase">View All Enrolled Users In Quizzes</a>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+              </div>
+               {% endif %}
+
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            {% endif %}
+
+
+      {% if courses %}
+            <div class="row">
+          <div class="col-md-12">
+               
+            <!-- TABLE: LATEST ORDERS -->
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">Latest {{courses.count}} Courses</h3>&nbsp;               
+                <div class="card-tools">
+                   <span class="badge badge-danger">{{courses.count}} New Courses</span>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <thead>
+                    <tr>
+                      <th>Course Name</th>
+                      <th>Provider</th>
+                      
+                      <th>Date&nbsp;&&nbsp;Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {% for course in courses %}
+                    <tr>
+                      <td><a href="{% url 'tutorial:courseview' course.id  %}" target="_blank">{{course.course_name}}</a></td>
+                      <td><a href="{% url 'tutorial:userprofile' course.user.id  %}"  target="_blank">@{{course.user.user.username}}</a></td>
+                      <td>{{course.created_date}}</td>
+                      
+                    </tr>
+                    {% endfor %}
+                     
+        
+                    </tbody>
+      
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <a href="{% url 'tutorial:course' %}" class="btn btn-sm btn-info float-left">Add New Course</a>
+                <a href="{% url 'tutorial:course' %}" class="btn btn-sm btn-secondary float-right">View All Courses</a>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+        
+          <!-- /.col -->
+         
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+ {% endif %}
+
+
+
+ 
+             
+
+
+        <div class="row">
+          {% if topics %}
+          <div class="col-md-6">
+           <!-- TABLE: LATEST ORDERS -->
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">Latest {{topics.count}} Topics</h3>
+
+                <div class="card-tools">
+                   <span class="badge badge-danger">{{topics.count}} New Topics</span>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <thead>
+                    <tr>
+                      <th>Topic Name</th>
+                     
+                      
+                       
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {% for topic in topics %}
+                    <tr>
+                      <td><a href="{% url 'tutorial:topic' %}">{{topic.topic_name}}</a></td>
+
+                      
+                    </tr>
+                    {% endfor %}
+                     
+        
+                    </tbody>
+      
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <a href="{% url 'tutorial:topic' %}" class="btn btn-sm btn-info float-left">Add New Topic</a>
+                <a href="{% url 'tutorial:topic' %}" class="btn btn-sm btn-secondary float-right">View All Topics</a>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+          </div>
+          {% endif %}
+          {% if contents %}
+          <div class="col-md-6">
+            <!-- TABLE: LATEST ORDERS -->
+            <div class="card">
+              <div class="card-header border-transparent">
+                <h3 class="card-title">Latest {{contents.count}} Contents</h3>
+
+                <div class="card-tools">
+                  <span class="badge badge-danger">{{contents.count}} New Contents</span>
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table m-0">
+                    <thead>
+                    <tr>
+                      <th>Course&nbsp;Name</th>
+                      <th>Topic&nbsp;Name</th>
+                      <th>Date&nbsp;&&nbsp;Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {% for content in contents %}
+                    <tr>
+                      <td><a href="{% url 'tutorial:content' %}">{{content.course.course_name|slice:'20'}}...</a></td>
+                      <td><a href="{% url 'tutorial:topic' %}">{{content.topic.topic_name|slice:'10'}}...</a></td>
+                      <td>{{content.created_date}}</td>
+                      
+                    </tr>
+                    {% endfor %}
+                     
+        
+                    </tbody>
+      
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <a href="{% url 'tutorial:course' %}" class="btn btn-sm btn-info float-left">Add New Content</a>
+                <a href="{% url 'tutorial:course' %}" class="btn btn-sm btn-secondary float-right">View All Contents</a>
+              </div>
+              <!-- /.card-footer -->
+            </div>
+          </div>
+            {% endif %}
+        </div>
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+        
+      </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+
+
+
+
+{% include 'tutorial/base/footer.html' %}
+{% include 'tutorial/base/footerlink.html' %}

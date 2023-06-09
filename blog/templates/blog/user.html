@@ -1,0 +1,457 @@
+{% extends 'blog/base/base.html' %}
+{% load static %}
+{% block tab_title %}ProCoder | Users Information {% endblock %}
+{% block card_header %}All Users Information{% endblock %}
+{% block card_body %}
+
+              
+               <!-- Add Form -->
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-5">
+                  <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-xl" >Add User </button><br>
+                </div>
+              </div>
+              <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">User Creation Form</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:white;">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-content">
+                      <div class="model-body">     
+                        <div class="container"><br>
+                          <form class="form-horizontal" action="{% url 'blog:usercreate' %}" method="POST"  enctype="multipart/form-data">{% csrf_token %}
+                            <div class="form-row">
+                              <div class="form-group col-md-4">
+                                <label>User Name : </label>
+                                {{form.user}}
+                                 <small class="form-text text-muted">User are already signup.</small> 
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label>First Name : </label>
+                                {{form.first_name}}
+                              </div>
+                              <div class="form-group col-md-4">
+                                <label>Last Name : </label>
+                                {{form.last_name}}
+                              </div>
+                            </div>
+                            
+                            
+
+                           <div class="form-row">                            
+                            <div class="form-group col-md-6">
+                              <label>Email : </label>
+                                  {{form.email}}
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>Age : </label>
+                                 {{form.age}}
+                            </div>
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label>Linkedin Profile : </label>
+                              {{form.linkedin}}
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>Github Profile : </label>
+                              {{form.github}}
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label>Twitter Profile : </label>
+                              {{form.twitter}}
+                            </div>
+                           <div class="form-group col-md-6">
+                              <label>Facebook Profile : </label>
+                              {{form.facebook}}
+                              
+                              
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label>Skill : </label>
+                              {{form.skill}}
+                            </div>
+                          </div>
+                           <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label>About You : </label>
+                              {{form.about}}
+                            </div>
+                          </div>
+                            <div class="form-row">
+                            <div class="form-group col-md-12 ">
+                              <label class="custom-file-label">User Profile Picture</label>
+                                {{form.pic}}
+                                <strong class="form-text text-muted">Currently:<a href="{{user.pic.url}}">{{user.pic}}</a></strong>              
+                             </div>
+                             </div>
+                            <br>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-primary">Add User</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- .Add Form -->
+              {% if users %}
+
+        <table id="example1" class="table table-bordered table-striped table-hover">
+                <thead style="text-align: center;">
+                  <tr>
+                    <th>#</th>
+                    <th>User&nbsp;Name</th>
+                     <th>Posts</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Last&nbsp;Login</th>
+                   
+                    
+                    <th>EDIT</th>
+                    <th>DELETE</th> 
+                  </tr>     
+                </thead>
+                <tbody>
+                  {% for i, form in ziped_data %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                   
+                    <!-- View -->
+                    <td><a href=""  data-toggle="modal" data-target="#bd-example-modal-xl{{i.id}}">{{i.user}}</a>
+                      <div class="row">
+                        <div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                          <div class="modal-dialog modal-xl">
+                            <!-- Widget: user widget style 2 -->
+                            <div class="card card-widget widget-user-2">
+                              <!-- Add the bg color to the header using any of the bg-* classes -->
+                              <div class="widget-user-header bg-info">
+                                <div class="widget-user-image">
+                                  <img class="img-circle elevation-2" src="{{i.pic.url}}" alt="User Avatar">
+                                </div>
+                                <!-- /.widget-user-image -->
+                                <h3 class="widget-user-username">@{{i.user.username}}</h3>
+                                
+                                
+                              </div>
+                              <div class="modal-content">
+                                <div class="model-body"><br>
+                                  <div class="card-footer p-0">
+                                    <div class="container">
+                                      <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                         <label>First Name : </label>                                        
+                                         <input type="text" class="form-control" value="{{i.first_name}}" readonly="">
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                         <label>Last Name : </label>                                        
+                                         <input type="text" class="form-control" value="{{i.last_name}}" readonly="">
+                                      </div>                           
+                                    </div>
+                                     <div class="form-row">                            
+                                      <div class="form-group col-md-6">
+                                        <label>Email : </label>
+                                          <input type="text" class="form-control" value="{{i.email}}" readonly="">
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                        <label>Age : </label>
+                                           <input type="text" class="form-control" value="{{i.age}}" readonly="">
+                                      </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <label>Linkedin Profile : </label>
+                                        <input type="text" class="form-control" value="{{i.linkedin}}" readonly="">
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                        <label>Github Profile : </label>
+                                        <input type="text" class="form-control" value="{{i.github}}" readonly="">
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <label>Twitter Profile : </label>
+                                         <input type="text" class="form-control" value="{{i.twitter}}" readonly="">
+                                      </div>
+                                     <div class="form-group col-md-6">
+                                        <label>Facebook Profile : </label>
+                                        <input type="text" class="form-control" value="{{i.facebook}}" readonly="">
+                                      </div>
+                                    </div>
+                                     <div class="form-row">
+                                      <div class="form-group col-md-12">
+                                        <label>About You : </label>
+                                        <textarea class="form-control" readonly="">
+                                          {{i.about}}
+                                        </textarea>
+                                      </div>
+                                    </div>
+                                      <div class="form-row">
+                                      <div class="form-group col-md-12 ">
+                                        <label class="custom-file-label">User Profile Picture: {{i.pic}}</label>
+                                          <strong class="form-text text-muted">Currently:<a href="{{i.pic.url}}">{{i.pic}}</a></strong>              
+                                       </div>
+                                       </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Okay</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>                   
+                      </div>
+                    </td>
+                    <!-- .View -->
+                    <td><span class="badge  badge-info">{{i.post_set.all.count}}</span></td>
+                    <td>{{i.email}}</td>
+                    <td style="text-align: center;">
+                        {% if i.status == 'ADMIN' %}
+                          <span class="badge badge-pill badge-success">&nbsp;ADMIN&nbsp;</span>
+                        {% elif i.status == 'USER' %}
+                          <span class="badge badge-pill badge-info">&nbsp;USER&nbsp;</span>
+                        {% elif i.status == 'BLOCK' %}
+                        <span class="badge badge-pill badge-warning">&nbsp;BLOCK&nbsp;</span>
+                        {% elif i.status == 'DEACTIVE' %}
+                        <span class="badge badge-pill badge-danger">&nbsp;DEACTIVE&nbsp;</span>
+                       {% endif %}
+                    </td>
+                    <td>{{i.user.last_login}}</td>
+                   
+                    
+                     
+                    <!-- Edit -->
+                    <td><button style="text-align: center;" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-xledit{{i.id}}"><i class="fas fa fa-user-edit fa-sm text-light"></i>&nbsp;EDIT</button>
+                      <div class="modal fade bd-example-modal-xledit{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeledit{{i.id}}"   aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="card card-info">
+                            <div class="card-header">
+                              <h3 class="card-title">User Edit Form</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-content">
+                              <div class="model-body"><br>                
+                                <div class="container">
+                                  <form class="form-horizontal" action="{% url 'blog:useredit' i.id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                   <div class="form-row">
+                                      <div class="form-group col-md-4">
+                                        <label>User Name : </label>
+                                        {{form.user}}
+                                      </div>
+                                      <div class="form-group col-md-4">
+                                        <label>User Age : </label>
+                                        {{form.age}}
+                                      </div>
+                                      <div class="form-group col-md-4">
+                                        <label>Rating : </label>
+                                        {{form.rating}}
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                            <div class="form-group col-md-6">
+                               <label>First Name : </label>
+                              {{form.first_name}}
+                            </div>
+                            <div class="form-group col-md-6">
+                               <label>Last Name : </label>
+                                {{form.last_name}}
+                            </div>                           
+                          </div>
+                           <div class="form-row">                            
+                            <div class="form-group col-md-6">
+                              <label>Email : </label>
+                                  {{form.email}}
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>Status : </label>
+                                 {{form.status}}
+                            </div>
+                          </div>
+
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label>Linkedin Profile : </label>
+                              {{form.linkedin}}
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label>Github Profile : </label>
+                              {{form.github}}
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label>Twitter Profile : </label>
+                              {{form.twitter}}
+                            </div>
+                           <div class="form-group col-md-6">
+                              <label>Facebook Profile : </label>
+                              {{form.facebook}}
+                              
+                              
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label>Skill : </label>
+                              {{form.skill}}
+                            </div>
+                          </div>
+                           <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label>About : </label>
+                              {{form.about}}
+                            </div>
+                          </div>
+                            <div class="form-row">
+                            <div class="form-group col-md-12 ">
+                              <label class="custom-file-label">User Profile Picture</label>
+                                {{form.pic}}
+                                <strong class="form-text text-muted">Currently:<a href="{{user.pic.url}}">{{user.pic}}</a></strong>              
+                             </div>
+                             </div>
+                                    <br>   
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                      <button type="submit" class="btn btn-info">Save Change</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <!-- .Edit -->
+                    <!-- Delete -->
+                    <td>
+                      <button style="text-align: center;" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-xldelete{{i.id}}"><i class="fas fa fa-trash-alt fa-sm text-light"></i>&nbsp;DELETE</button>
+                      <div class="modal fade bd-example-modal-xldelete{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeldelete{{i.id}}"   aria-hidden="true">
+                      <div class="modal-dialog modal-xl">
+                        <!-- Widget: user widget style 2 -->
+                        <div class="card card-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                          <div class="widget-user-header badge-danger">
+                             <div class="widget-user-image">
+                                  <img class="img-circle elevation-2" src="{{i.pic.url}}" alt="User Avatar">
+                                </div>
+                                <!-- /.widget-user-image -->
+                                <h3 class="widget-user-username">@{{i.user.username}}</h3>
+                                  
+                               
+                          </div>
+                          <div class="modal-content">
+                            <div class="model-body"><br>
+                              <div class="card-footer p-0">
+                                <div class="container">
+                                <form class="form-horizontal" action="{% url 'blog:userdelete' i.user.id %}" method="POST">{% csrf_token %}
+                                 
+                                  <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                         <label>First Name : </label>                                        
+                                         <input type="text" class="form-control" value="{{i.first_name}}" readonly="">
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                         <label>Last Name : </label>                                        
+                                         <input type="text" class="form-control" value="{{i.last_name}}" readonly="">
+                                      </div>                           
+                                    </div>
+                                     <div class="form-row">                            
+                                      <div class="form-group col-md-6">
+                                        <label>Email : </label>
+                                          <input type="text" class="form-control" value="{{i.email}}" readonly="">
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                        <label>Age : </label>
+                                           <input type="text" class="form-control" value="{{i.age}}" readonly="">
+                                      </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <label>Linkedin Profile : </label>
+                                        <input type="text" class="form-control" value="{{i.linkedin}}" readonly="">
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                        <label>Github Profile : </label>
+                                        <input type="text" class="form-control" value="{{i.github}}" readonly="">
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <label>Twitter Profile : </label>
+                                         <input type="text" class="form-control" value="{{i.twitter}}" readonly="">
+                                      </div>
+                                     <div class="form-group col-md-6">
+                                        <label>Facebook Profile : </label>
+                                        <input type="text" class="form-control" value="{{i.facebook}}" readonly="">
+                                      </div>
+                                    </div>
+                                     <div class="form-row">
+                                      <div class="form-group col-md-12">
+                                        <label>About You : </label>
+                                        <textarea class="form-control" readonly="">
+                                          {{i.about}}
+                                        </textarea>
+                                      </div>
+                                    </div>
+                                      <div class="form-row">
+                                      <div class="form-group col-md-12 ">
+                                        <label class="custom-file-label">User Profile Picture: {{i.pic}}</label>
+                                          <strong class="form-text text-muted">Currently:<a href="{{i.pic.url}}">{{i.pic}}</a></strong>              
+                                       </div>
+                                       </div>
+
+
+
+
+
+
+
+
+
+
+                                    <div class="modal-footer">  
+                                      <div class="text">
+                                            <p class="card-title" style="font-size: 96%;">Do you want to delete " <i>{{i.user.username}}</i> ".</p>
+                                      </div>                              
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Yes I'm Sure</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <!-- .Delete -->
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                
+              </table>
+              {% else %}
+                <h6 style="text-align: center;">Sorry, record not exist yet.<span class="badge badge-primary">Click to create new record !</span></h6>
+              {% endif %}
+{% endblock %}
+{% block card_footer %}<b style="color:red;">You shouldn't create or update any user information.</b>{% endblock %}

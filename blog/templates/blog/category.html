@@ -1,0 +1,210 @@
+{% extends 'blog/base/base.html' %}
+{% load static %}
+{% block tab_title %}ProCoder | Categories {% endblock %}
+{% block card_header %}All Categories Information{% endblock %}
+{% block card_body %}
+
+<!-- create -->
+<div class="row justify-content-md-center">
+    <div class="col col-lg-5">
+         <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-xl" >Add Category</button><br>
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+         <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Category Creation Form</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" style="color:white;">&times;</span>
+              </button>
+            </div>
+            <div class="modal-content">
+              <div class="model-body"><br>                
+                <div class="container">
+                   <form class="form-horizontal" action="{% url 'blog:categorycreate' %}" method="POST"  enctype="multipart/form-data">{% csrf_token %}
+                    <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label>Category Name : </label>
+                            {{form.category}}
+                          </div>
+                    </div>
+                                                      
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Category</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+<!-- .create -->
+
+{% if categorys %}
+<table id="example1" class="table table-bordered table-striped table-hover">
+<thead style="text-align: center;">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Category</th>
+     <th scope="col">Created&nbsp;Date</th>
+    <th scope="col">EDIT</th>
+    <th scope="col">DELETE</th>
+  </tr>     
+</thead>
+<tbody>
+  {% for i, form in ziped_data %}
+  <tr>
+    <td>{{forloop.counter}}</td>
+    <!-- View -->
+    <td><a href=""  data-toggle="modal" data-target="#bd-example-modal-xl{{i.id}}">{{i.category|title|slice:"60"}}...</a>
+      <div class="row">
+        <div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Category View</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" style="color:white;">&times;</span>
+              </button>
+            </div>
+            <div class="modal-content">
+              <div class="model-body"><br>                
+                <div class="container">
+                   <form>
+                    <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label>Category Name : </label>
+                           <input type="text" class="form-control" value="{{i.category}}" readonly="">
+                          </div>
+                    </div>  
+                                                           
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Okay</button>
+                        
+                    </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            </div>
+        </div>                   
+      </div>
+    </td>
+    <!-- .View -->
+
+    <td>{{i.created_date}}</td>
+
+    <!-- Edit -->
+    <td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-xledit{{i.id}}"  style="text-align: center;" ><i class="fas fa fa-user-edit fa-sm text-light"></i>&nbsp;EDIT</button>
+      <div class="modal fade bd-example-modal-xledit{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeledit{{i.id}}"   aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Category Edit Form</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" style="color:white;">&times;</span>
+              </button>
+            </div>
+            <div class="modal-content">
+              <div class="model-body"><br>                
+                <div class="container">
+                   <form class="form-horizontal" action="{% url 'blog:categoryedit' i.id %}" method="POST"  enctype="multipart/form-data">{% csrf_token %}
+                    <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label>Category Name : </label>
+                            {{form.category}}
+                          </div>
+                    </div> 
+                                                           
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-info">Save Changes</button>
+                    </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+    <!-- .Edit -->
+    <!-- Delete -->
+    <td>
+      <button style="text-align: center;" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-xldelete{{i.id}}"><i class="fas fa fa-trash-alt fa-sm text-light"></i>&nbsp;DELETE</button>
+      <div class="modal fade bd-example-modal-xldelete{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeldelete{{i.id}}"   aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+           <div class="card card-danger">
+                <div class="card-header">
+                <h3 class="card-title">Category Deletion Form</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color:white;">&times;</span>
+                </button>
+                </div>
+                <div class="modal-content">
+                    <div class="model-body">     
+                        <div class="container"><br>
+                           <form class="form-horizontal" action="{% url 'blog:categorydelete' i.id  %}" method="POST"  enctype="multipart/form-data">{% csrf_token %}                           
+                            <div class="form-row">
+                              <div class="form-group col-md-12">
+                                <label>Category Name : </label>
+                                <input type="text" class="form-control" value="{{i.category}}" readonly="">
+                              </div>
+                            </div>
+                       
+                            <br>
+                            <div class="modal-footer">
+                                <div class="text">
+                                        <p class="card-title" style="font-size: 96%;">Do you want to delete " <i>{{i.category}}</i> ".</p>
+                                </div>   
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Yes I'm Sure</button>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </td>
+    <!-- .Delete -->
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+{% else %}
+  <h6 style="text-align: center;">Sorry, record not exist yet.<span class="badge badge-primary">Click to create new record !</span></h6>
+{% endif %}
+ 
+{% endblock %}
+{% block card_footer %}<b style="color: green;">You can create, update or delete awesome category :)</b>{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

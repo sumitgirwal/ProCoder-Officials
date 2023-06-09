@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include 'tutorial/base/headerlink.html' %}
+   
+    <title>{% block title %}{% endblock %}</title>
+
+     {% block navbar %}{% endblock %}
+         <style type="text/css">
+    .img {
+    float:  left;
+    width:  150px;
+    height: 150px;
+    background-size: cover;
+     border-radius: 50%;
+      border:4px solid #969696;
+}
+  </style>
+
+  </head>
+  <body style="background-color:#ebebeb;">
+  	{% include 'tutorial/base/messages.html' %}
+	<div class="container"><br>	
+		<!-- Main content -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						 <h3 style="font-family: Calibri;text-align: center;padding-top: 1%;">{% block card_title %}{% endblock %}&nbsp;<u style="color:#b0b0b0">{% block card_info %}{% endblock %}</u>&nbsp;<span class="badge badge-warning">{% block card_total %}{% endblock %}</span></h3>						 
+						{% block body %}
+						{% endblock %}
+					</div>
+				<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div>
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+  
+  {% include 'tutorial/base/footerlink.html' %}
+  
+  {% include 'tutorial/base/messages.html' %}
+  
+
+  

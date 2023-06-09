@@ -1,0 +1,303 @@
+{% extends 'tutorial/base/base.html' %}
+{% load static %}
+{% block tab_title %}ProCoder | Users Performance {% endblock %}
+{% block card_header %}All Users Information{% endblock %}
+{% block card_body %}
+  <!-- Add Form -->
+  <div class="row justify-content-md-center">
+     <div class="col col-lg-5">
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-xl" >Add User Performance </button><br>
+      </div>
+  </div>
+  <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="card card-primary">
+        <div class="card-header">
+        <h3 class="card-title">User Performance Form</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true" style="color:white;">&times;</span>
+        </button>
+        </div>
+        <div class="modal-content">
+          <div class="model-body">       
+            <br>
+            <div class="container">
+                <form class="form-horizontal" action="{% url 'tutorial:performancecreate' %}" method="POST">{% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <div class="form-group">
+                            <label>User Name :</label>
+                            {{form.user}}
+                        </div>
+                    </div>
+                    
+                     <div class="form-group col-md-4">
+                        <div class="form-group">
+                            <label>Total Answer : </label>
+                            {{form.total_qna}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" style="text-align: center;">
+                    <div class="form-group col-md-4" style="text-align: center;">
+                        {{form.correct_answer}}
+                        <div class="knob-label"><b style="color: green;">Correct %</b></div>
+                    </div>
+                    <div class="form-group col-md-4" style="text-align: center;">
+                          {{form.wrong_answer}}
+                        <div class="knob-label"><b style="color:red;">Wrong %</b></div>
+                    </div>
+                    <div class="form-group col-md-4" style="text-align: center;">
+                          {{form.none_answer}}
+                        <div class="knob-label"><b style="color:#36648b;">Not Seleted %</b></div>
+                    </div>
+                </div>
+                 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" >Add User Performance</button>
+                </div> 
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- .Add Form -->
+  {% if total_quizattempted %}
+<table id="example1" class="table table-bordered table-striped table-hover">
+    <thead style="text-align: center;">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User Name</th>
+        <th scope="col">Correct</th>
+        <th scope="col">Wrong</th>
+        <th scope="col">Not&nbsp;Selected</th>
+        <th scope="col">Quiz Completed</th>        
+        <th scope="col">EDIT</th>
+        <th scope="col">DELETE</th>
+      </tr>     
+    </thead>
+    <tbody>
+      {% for i, form in ziped_data %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <!-- View -->
+        <td><a href=""  data-toggle="modal" data-target="#bd-example-modal-xl{{i.id}}">{{i.user.user.username}}</a>
+            <div class="row">
+                <div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <!-- Widget: user widget style 2 -->
+                        <div class="card card-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-info">
+                                <div class="widget-user-image">
+                                    <img class="img-circle elevation-2" src="{{i.user.pic.url}}" alt="User Avatar">
+                                </div>
+                                <!-- /.widget-user-image -->
+                                <h3 class="widget-user-username">@{{i.user.user.username}}</h3>
+                               
+                                 
+                            </div>
+                            <div class="modal-content">
+                                <div class="model-body"><br>
+                                    
+                                       <div class="container" >
+                                           <div class="form-row">
+                                                <div class="form-group col-md-8">
+                                                    <div class="form-group">
+                                                        <label>User Name : </label>
+                                                        {{form.user}}
+                                                    </div>
+                                                </div>
+                                                
+                                                 <div class="form-group col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Total Answer ;</label>
+                                                        {{form.total_qna}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        <div class="form-row" style="padding-left:5%;text-align: center;">
+                                            <div class="form-group col-md-4">
+                                                <div class="form-group">                                                
+                                                    <input type="text" class="knob" value="{{i.correct_answer}}" data-skin="tron" data-thickness="0.2" data-width="150" data-height="150" data-fgColor="green" data-readonly="true">
+                                                    <div class="knob-label"><b style="color:green;">Correct %</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <div class="form-group">                                                   
+                                                    <input type="text" class="knob" value="{{i.wrong_answer}}" data-skin="tron" data-thickness="0.2" data-width="150" data-height="150" data-fgColor="red" data-readonly="true">
+                                                     <div class="knob-label"><b style="color:red;">Wrong %</b></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <div class="form-group">                                                    
+                                                    <input type="text" class="knob" value="{{i.none_answer}}" data-skin="tron" data-thickness="0.2" data-width="150" data-height="150" data-fgColor="#36648b" data-readonly="true">
+                                                    <div class="knob-label"><b style="color:#36648b;">Not Seleted %</b></div>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                                                              
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-success" data-dismiss="modal">Okay</button>
+                                        </div>
+                                       </div>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                             
+        </td>
+        <!-- .View -->
+       
+        <td  style="text-align: center;"> <b style="text-align: center;"><span class="badge badge-pill badge-success">&nbsp;{{i.correct_answer}}%&nbsp;</span></b></td>
+        <td style="text-align: center;"><b><span class="badge badge-pill badge-danger">&nbsp;{{i.wrong_answer}}%&nbsp;</span></b></td>
+        <td style="text-align: center;"><b><span class="badge badge-pill badge-warning">&nbsp;{{i.none_answer}}%&nbsp;</span></b></td>
+        <td>{{i.created_date}}</td>
+        <!-- Edit -->
+        <td><button style="text-align: center;" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-xledit{{i.id}}"><i class="fas fa fa-user-edit fa-sm text-light"></i>&nbsp;
+EDIT</button>
+          <div class="modal fade bd-example-modal-xledit{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeledit{{i.id}}"   aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="card card-info">
+                <div class="card-header">
+                  <h3 class="card-title">User Performance Edit Form</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color:white;">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-content">
+                  <div class="model-body"><br>                
+                    <br>
+                    <div class="container">
+                        <form class="form-horizontal" action="{% url 'tutorial:performanceedit' i.id %}" method="POST">{% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <div class="form-group">
+                                    <label>User Name :</label>
+                                    {{form.user}}
+                                </div>
+                            </div>
+                        
+                            <div class="form-group col-md-4">
+                                <div class="form-group">
+                                    <label>Total Answer :</label>
+                                    {{form.total_qna}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4" style="text-align: center;">
+                                {{form.correct_answer}}
+                                <div class="knob-label"><b style="color: green;">Correct %</b></div>
+                            </div>
+                            <div class="form-group col-md-4" style="text-align: center;">
+                                {{form.wrong_answer}}
+                                <div class="knob-label"><b style="color:red;">Wrong %</b></div>
+                            </div>
+                            <div class="form-group col-md-4" style="text-align: center;">
+                                {{form.none_answer}}
+                                <div class="knob-label"><b style="color:#36648b;">Not Seleted %</b></div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" >Save Changes</button>
+                        </div> 
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <!-- .Edit -->
+        <!-- Delete -->
+        <td>
+            <button style="text-align: center;" type="button" class="btn btn-danger btn-sm text-center" data-toggle="modal" data-target=".bd-example-modal-xldelete{{i.id}}"><i class="fas fa fa-trash-alt fa-sm text-light"></i>&nbsp;DELETE</button>
+            <div class="modal fade bd-example-modal-xldelete{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeldelete{{i.id}}"   aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <!-- Widget: user widget style 2 -->
+                    <div class="card card-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-info">
+                            <div class="widget-user-image">
+                                <img class="img-circle elevation-2" src="{{i.user.pic.url}}" alt="User Avatar">
+                            </div>
+                            <!-- /.widget-user-image -->
+                            <h3 class="widget-user-username">{{i.user.user.username}}</h3>
+                             
+                             
+                        </div>
+                        <div class="modal-content">
+                            <div class="model-body"><br>
+                                 
+                                     <form class="form-horizontal" action="{% url 'tutorial:performancedelete' i.id %}" method="POST">{% csrf_token %}
+                                    <div class="container">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-8">
+                                                <div class="form-group">
+                                                    <label>User Name :</label>
+                                                    {{form.user}}
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="form-group col-md-4">
+                                                <div class="form-group">
+                                                    <label>Total Answer :</label>
+                                                    {{form.total_qna}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row" style="padding-left: 5%;text-align: center;">
+                                        <div class="form-group col-md-4">
+                                            <div class="form-group">                                                    
+                                                <input type="text" class="knob" value="{{i.correct_answer}}" data-skin="tron" data-thickness="0.2" data-width="150" data-height="150" data-fgColor="green" data-readonly="true">
+                                                <div class="knob-label"><b style="color:green;">Correct %</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <div class="form-group">                                                   
+                                                <input type="text" class="knob" value="{{i.wrong_answer}}" data-skin="tron" data-thickness="0.2" data-width="150" data-height="150" data-fgColor="red" data-readonly="true">
+                                                <div class="knob-label"><b style="color:red;">Wrong %</b></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <div class="form-group">                                                    
+                                                <input type="text" class="knob" value="{{i.none_answer}}" data-skin="tron" data-thickness="0.2" data-width="150" data-height="150" data-fgColor="#36648b" data-readonly="true">
+                                                <div class="knob-label"><b style="color:#36648b;">Not Seleted %</b></div>
+                                            </div>
+                                        </div>
+                                    </div> 
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Yes I'm Sure</button>
+                                    </div>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <!-- .Delete -->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h6 style="text-align: center;">Sorry, record not exist yet.<span class="badge badge-primary">Click to create new record !</span></h6>
+{% endif %}
+{% endblock %}
+{% block card_footer %}<b style="color: #ee0000;">You shouldn't create, update or delete any user information.</b>{% endblock %}

@@ -1,0 +1,104 @@
+ {% extends 'tutorial/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | Home{% endblock %}
+{% block navbar %}{% include 'tutorial/usernavbar.html' %}{% endblock %}
+{% block content %}
+ 
+ 
+<div class="container">
+ 
+<div class="alert alert-success" role="alert">
+{% for qna, score,choice in ziped_data %} 
+
+  <h6 class="alert-heading">{{forloop.counter}}.{{qna.question}}</h6>
+
+  <hr>
+    
+    
+    {% if score == None %}
+      <p><b>Answer : {{qna.answer}}</b></p><br>
+      <p>A. {{qna.option_1}}</p><br>
+      <p>B. {{qna.option_2}}</p><br>
+      <p>C. {{qna.option_3}}</p><br>
+      <p>D. {{qna.option_4}}</p><br>
+    {% elif score == True %}
+       
+      <p><b>Answer : {{qna.answer}}</b></p><br>
+      {% if qna.option_1 == choice %}
+      <p><b style="color: green;">A. {{qna.option_1}}</b></p><br>
+      <p>B. {{qna.option_2}}</p><br>
+      <p>C. {{qna.option_3}}</p><br>
+      <p>D. {{qna.option_4}}</p><br>
+      {% elif qna.option_2 == choice %}
+      <p>A. {{qna.option_1}}</p><br>
+      <p><b style="color: green;">B. {{qna.option_2}}</b></p><br>
+      <p>C. {{qna.option_3}}</p><br>
+      <p>D. {{qna.option_4}}</p><br>
+      {% elif qna.option_3 == choice %}
+      <p>A. {{qna.option_1}}</p><br>
+      <p>B. {{qna.option_2}}</p><br>
+      <p><b style="color: green;">C. {{qna.option_3}}</b></p><br>
+      <p>D. {{qna.option_4}}</p><br>
+      {% elif qna.option_4 == choice %}
+      <p>A. {{qna.option_1}}</p><br>
+      <p>B. {{qna.option_2}}</p><br>
+      <p>C. {{qna.option_3}}</p><br>
+      <p><b style="color: green;">D. {{qna.option_4}}</b></p><br>
+      {% endif %}
+
+    {% elif score == False %}
+     
+      <p><b>Your Choice : {{choice}}</b></p><br>
+      <p><b>Answer : {{qna.answer}}</b></p><br>
+      {% if qna.option_1 == choice %}
+      <p><b style="color: red;">A. {{qna.option_1}}</b></p><br>
+      <p>B. {{qna.option_2}}</p><br>
+      <p>C. {{qna.option_3}}</p><br>
+      <p>D. {{qna.option_4}}</p><br>
+      {% elif qna.option_2 == choice %}
+      <p>A. {{qna.option_1}}</p><br>
+      <p><b style="color: red;">B. {{qna.option_2}}</b></p><br>
+      <p>C. {{qna.option_3}}</p><br>
+      <p>D. {{qna.option_4}}</p><br>
+      {% elif qna.option_3 == choice %}
+      <p>A. {{qna.option_1}}</p><br>
+      <p>B. {{qna.option_2}}</p><br>
+      <p><b style="color: red;">C. {{qna.option_3}}</b></p><br>
+      <p>D. {{qna.option_4}}</p><br>
+      {% elif qna.option_4 == choice %}
+      <p>A. {{qna.option_1}}</p><br>
+      <p>B. {{qna.option_2}}</p><br>
+      <p>C. {{qna.option_3}}</p><br>
+      <p><b style="color: red;">D. {{qna.option_4}}</b></p><br>
+      {% endif %}
+
+
+    {% endif %}  
+
+
+
+
+
+<br>
+{% endfor %}
+  
+<a class="btn btn-warning btn-block" href="{% url 'allquiz' %}"><---Back</a>
+  
+</div>
+ <br>
+</div>
+
+
+
+{% endblock %}
+
+
+
+ 
+
+
+
+
+
+
+

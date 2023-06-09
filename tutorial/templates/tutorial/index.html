@@ -1,0 +1,423 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>ProCoder | Tutorial</title>
+  <link rel = "icon" href ="https://procodersp.blogspot.com/favicon.ico" type = "image/x-icon"> 
+  <!-- Bootstrap Core CSS -->
+  <link href="{% static 'tutorial/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="{% static 'tutorial/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="{% static 'tutorial/vendor/simple-line-icons/css/simple-line-icons.css' %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{% static 'tutorial/css/stylish-portfolio.css' %}" rel="stylesheet">
+<style type="text/css">
+.counter {
+    background-color:#f5f5f5;
+    padding: 20px 0;
+    border-radius: 5px;
+     background: rgba(76, 175, 80, 0.3);
+     color:cyan;
+}
+
+.count-title {
+    font-size: 40px;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.count-text {
+    font-size: 13px;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.fa-2x {
+    margin: 0 auto;
+    float: none;
+    display: table;
+    color: #4ad1e5;
+}
+</style>
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="{% url 'index' %}">ProCoder</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#page-top">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#portfolio">Courses</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#about">About</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#services">Services</a>
+      </li>
+      
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#contact">Contact</a>
+      </li>
+
+       {% if not request.user.is_authenticated %}
+      <li class="sidebar-nav-item">
+        <a href="{% url 'tutorial:login_page' %}">Login</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a href="{% url 'tutorial:register_page' %}">Register</a>
+      </li> 
+      {% else %}       
+
+        {% if request.session.status == 'ADMIN' %}
+        <li class="sidebar-nav-item">
+          <a href="{% url 'tutorial:admin_panel' %}">Admin Dashboard</a>
+        </li>
+        {% elif request.session.status == 'USER' %}
+         <li class="sidebar-nav-item">
+             <a href="{% url 'tutorial:userdashboard' %}">User Dashboard</a>
+        </li>
+        {% endif %}
+        <li class="sidebar-nav-item">
+           <a href="{% url 'tutorial:logout_page' %}">Logout</a>
+        </li>
+         
+      {% endif %}
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="masthead d-flex">
+    <div class="container text-center my-auto">
+      <h1 class="mb-1" style="color:white;">Procoder Learning Tutorial !</h1>
+      <h3 class="mb-5">
+      <em style="color:#c9c9c9;">This is the best website for free learning.</em>
+      </h3>
+        <!--  <h2>Bootstrap 4 counter</h2> -->
+        <p style="color:#969696;">Over best performance  <small style="color:white;">Be Happy <i class="fa fa-smile"></i> </small></p>
+
+
+    <div class="row text-center" style="font-family: Verdana;">
+       <div class="col">
+        <div class="counter">
+        <i class="fa fa-users fa-2x"></i>
+        <h2 class="timer count-title count-number" data-to="{{total_user}}" data-speed="1500"></h2>
+        <p class="count-text ">Happy Clients</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="counter">
+        <i class="fa fa-code fa-2x"></i>
+        <h2 class="timer count-title count-number" data-to="{{total_course}}" data-speed="1500"></h2>
+        <p class="count-text ">Courses</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="counter">
+        <i class="fa fa-question fa-2x"></i>
+        <h2 class="timer count-title count-number" data-to="{{total_quiz}}" data-speed="1500"></h2>
+        <p class="count-text ">Quizzes</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="counter">
+        <i class="fa fa-bug fa-2x"></i>
+        <h2 class="timer count-title count-number" data-to="{{total_content}}" data-speed="1500"></h2>
+        <p class="count-text ">Tutorials</p>
+        </div>
+      </div>
+    </div>
+    <br>
+    <a class="btn btn-primary btn-xl js-scroll-trigger" href="{% url 'tutorial:allcourse' %}">Click To More Courses</a>
+
+    <div class="overlay"></div>
+  </header>
+
+
+  <!-- Portfolio -->
+  <section class="content-section" id="portfolio">
+    <div class="container">
+      <div class="content-section-heading text-center">
+        <h3 class="text-secondary mb-0">Courses</h3>
+        <h2 class="mb-5">Some Recent Courses</h2>
+      </div>
+      <div class="row no-gutters">
+      {% for course in courses %}
+        <div class="col-lg-6">
+          <a class="portfolio-item" href="{% static 'tutorial/img/post.jpg' %}">
+            <span class="caption">
+              <span class="caption-content" style="font-family: Lucida Sans;">
+                <h4>{{course.course_name}}</h4>
+                <p class="mb-0"><b>About : </b>{{course.course_description|slice:"40"}}...more</p>
+                <p class="mb-0">{{course.modify_date}} </p>
+                <p class="mb-0"></p>
+                <p class="mb-0">By : {{course.user.user.username}}</p>
+              </span>
+            </span>
+            <img class="img-fluid" src="{% static 'tutorial/img/post.jpg' %}" alt="">
+          </a>
+        </div>
+      {% endfor %}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="content-section bg-light" id="about">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <h2>This is the perfect time to start now.</h2>
+          <p class="lead mb-5" style="font-family: Lucida Sans;">Attitude.Skill.Quik Learning.Team Player.Stay Focused.Anywhere.Anytime.Anyone
+            <a href="{% url 'index' %}">Procoder</a>!</p>
+          <a class="btn btn-dark btn-xl js-scroll-trigger" href="#services">Why us ?</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="content-section bg-primary text-white text-center" id="services">
+    <div class="container">
+      <div class="content-section-heading">
+        <h3 class="text-secondary mb-0">Why us ?</h3>
+        <h2 class="mb-5">Give us your time and you will be filled with confidence of knowledge</h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-screen-smartphone"></i>
+          </span>
+          <h4>
+            <strong>Learning Way</strong>
+          </h4>
+          <p class="text-faded mb-0">You can use any device !</p>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-pencil"></i>
+          </span>
+          <h4>
+            <strong>Practice</strong>
+          </h4>
+          <p class="text-faded mb-0">We will engage you with resourseful communications like exam updates, tips with useful messages!</p>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-like"></i>
+          </span>
+          <h4>
+            <strong>Fast</strong>
+          </h4>
+          <p class="text-faded mb-0">We're here to help you improve as fast as possible.</p>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-question"></i>
+          </span>
+          <h4>
+            <strong>Question & Answer</strong>
+          </h4>
+          <p class="text-faded mb-0">We will clear your all doubts and queries.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Callout -->
+  <section class="callout">
+    <div class="container text-center">
+      <h3 class="mx-auto mb-5" style="color:white;">THERE ARE&nbsp;<em style="color: black">10</em>&nbsp;TYPES OF PEOPLE IN THIS WORLD.<br>THOSE WHO UNDERSTAND <em style="color: black">BINARY</em> AND THOSE WHO DON'T !</h3>
+       
+    </div>
+  </section>
+
+
+  <!-- Call to Action -->
+  <section class="content-section bg-primary text-white" id="contact">
+    <div class="container text-center">
+      <h2 class="mb-4">Start your adventurous journey with us.
+      </h2>
+      <a href="{% url 'tutorial:login_page' %}" class="btn btn-xl btn-light mr-4">Login</a>
+      <a href="{%  url 'tutorial:register_page' %}" class="btn btn-xl btn-dark mr-4">Register</a>
+      <a href="{%  url 'tutorial:feedback_page' %}" class="btn btn-xl" style="background-color: #dcdcdc;" target="_blank"> Feedback</a>
+    </div>
+  </section>
+
+  <!-- Map -->
+<!--   <section id="contact" class="map">
+    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
+    <br />
+    <small>
+      <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
+    </small>
+  </section> -->
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      <ul class="list-inline mb-5">
+        <li class="list-inline-item">
+          <a class="social-link rounded-circle text-white mr-3" href="#">
+            <i class="icon-social-github"></i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="social-link rounded-circle text-white mr-3" href="#">
+            <i class="icon-social-linkedin"></i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="social-link rounded-circle text-white" href="#">
+            <i class="icon-social-youtube"></i>
+          </a>
+        </li>
+          
+      </ul>
+      <p class="text-muted small mb-0">Copyright &copy; 2020 ProCoder | All rights reserved.Copyright.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'tutorial/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'tutorial/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'tutorial/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'tutorial/js/stylish-portfolio.min.js' %}"></script>
+
+  <script type="text/javascript">
+ (function ($) {
+  $.fn.countTo = function (options) {
+    options = options || {};
+    
+    return $(this).each(function () {
+      // set options for current element
+      var settings = $.extend({}, $.fn.countTo.defaults, {
+        from:            $(this).data('from'),
+        to:              $(this).data('to'),
+        speed:           $(this).data('speed'),
+        refreshInterval: $(this).data('refresh-interval'),
+        decimals:        $(this).data('decimals')
+      }, options);
+      
+      // how many times to update the value, and how much to increment the value on each update
+      var loops = Math.ceil(settings.speed / settings.refreshInterval),
+        increment = (settings.to - settings.from) / loops;
+      
+      // references & variables that will change with each update
+      var self = this,
+        $self = $(this),
+        loopCount = 0,
+        value = settings.from,
+        data = $self.data('countTo') || {};
+      
+      $self.data('countTo', data);
+      
+      // if an existing interval can be found, clear it first
+      if (data.interval) {
+        clearInterval(data.interval);
+      }
+      data.interval = setInterval(updateTimer, settings.refreshInterval);
+      
+      // initialize the element with the starting value
+      render(value);
+      
+      function updateTimer() {
+        value += increment;
+        loopCount++;
+        
+        render(value);
+        
+        if (typeof(settings.onUpdate) == 'function') {
+          settings.onUpdate.call(self, value);
+        }
+        
+        if (loopCount >= loops) {
+          // remove the interval
+          $self.removeData('countTo');
+          clearInterval(data.interval);
+          value = settings.to;
+          
+          if (typeof(settings.onComplete) == 'function') {
+            settings.onComplete.call(self, value);
+          }
+        }
+      }
+      
+      function render(value) {
+        var formattedValue = settings.formatter.call(self, value, settings);
+        $self.html(formattedValue);
+      }
+    });
+  };
+  
+  $.fn.countTo.defaults = {
+    from: 0,               // the number the element should start at
+    to: 0,                 // the number the element should end at
+    speed: 100,           // how long it should take to count between the target numbers
+    refreshInterval: 100,  // how often the element should be updated
+    decimals: 0,           // the number of decimal places to show
+    formatter: formatter,  // handler for formatting the value before rendering
+    onUpdate: null,        // callback method for every time the element is updated
+    onComplete: null       // callback method for when the element finishes updating
+  };
+  
+  function formatter(value, settings) {
+    return value.toFixed(settings.decimals);
+  }
+}(jQuery));
+
+jQuery(function ($) {
+  // custom formatting example
+  $('.count-number').data('countToOptions', {
+  formatter: function (value, options) {
+    return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+  }
+  });
+  
+  // start all the timers
+  $('.timer').each(count);  
+  
+  function count(options) {
+  var $this = $(this);
+  options = $.extend({}, options || {}, $this.data('countToOptions') || {});
+  $this.countTo(options);
+  }
+});
+  </script>
+</body>
+
+</html>

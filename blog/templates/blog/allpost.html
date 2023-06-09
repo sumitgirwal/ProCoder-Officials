@@ -1,0 +1,155 @@
+{% extends 'blog/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | All Post {% endblock %}
+{% block page_title %}All{% endblock %}
+{% block page_body %}Post{% endblock %}
+{% block page_total %}{{total_post}}{% endblock %}
+{% block body %}
+
+
+{% if  posts.object_list %}
+<div class="row">
+  <div class="col-md-9">
+    {% for i in posts.object_list %}
+    <!-- Box Comment -->
+    <div class="card card-widget">
+      <div class="card-header">
+        <div class="user-block">
+          <img class="img-circle" src="{{i.user.pic.url}}" alt="User Image">
+          <span class="username"><a href="{% url 'tutorial:userprofile' i.user.id %}" target="_blank">@{{i.user.user.username}}</a></span>
+          <span class="description">Shared publicly - {{i.created_date}}</span>
+        </div>
+        <!-- /.user-block -->
+        <div class="card-tools">
+          <span class="badge badge-info"> <i class="fas fa-eye"></i>&nbsp;{{i.post_view}}</span>
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+          </button>
+        </div>
+        <!-- /.card-tools -->
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <h4><a href="{% url 'blog:postview' i.id %}">{{i.post_title|title}}</a></h4>
+       
+          <img class="img-fluid pad" src="{{i.post_pic.url}}" alt="Photo" width="50%" height="50%">
+         
+          
+       <br>
+       <br>
+        
+        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#exampleModal{{i.id}}" title="Share"><i class="fas fa-share"></i> Share</button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{i.id}}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Copy & Share</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body"> 
+          <p>http://127.0.0.1:8000/blog/postview/{{i.id}}</p>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+        </div>
+        </div>
+
+
+
+        
+         <span class="float-right text-muted">
+                <span class="badge badge-success"><i class="fas fa-thumbs-up"></i>&nbsp;{{i.like_set.all.count}} </span>
+                <span class="badge badge-success"><i class="fas fa-comments"></i> &nbsp;{{i.comment_set.all.count}} </span>
+              </span>
+      </div>
+      <!-- /.card-body -->
+   
+    </div>
+    <!-- /.card -->
+
+    {% endfor %}
+    <div class="card-footer">
+          <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0">
+                {% if posts.has_previous %}
+                     <li class="page-item "><a class="page-link" href="?page={{courses.previous_page_number}}">Previous</a></li>
+                {% endif %}
+                {% for pg in posts.paginator.page_range %}
+                     {% if posts.number == pg %}
+                            <li class="page-item active"><a href="?page={{ pg }}" class="page-link">{{ pg }}</a></li>
+                     {% else %}
+                            <li class="page-item "><a href="?page={{ pg }}" class="page-link">{{ pg }}</a></li>
+                     {% endif %}
+                {% endfor %}
+                {% if posts.has_next %}
+                     <li class="page-item "><a class="page-link" href="?page={{courses.next_page_number}}">Next</a></li>
+                {% endif %}
+            
+            </ul>
+          </nav>
+        </div>
+        <!-- /.card-footer -->
+
+
+  </div>
+  <!-- /.col -->
+  <div class="col-md-3">
+    
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search Post</h5>
+          <div class="card-body">
+            <div class="input-group">
+            
+              <span class="input-group-btn">
+               &nbsp; <a href="{% url 'blog:postsearch' %}" class="btn btn-outline-warning" >Customize Searching</a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+               {% for i in  category %}
+              <a href="/blog/postsearch/?user=&post_title=+&contain=&start_date=&end_date=+&category={{i.id}}"><span class="badge badge-info">{{i.category|title}}</span></a>&nbsp;
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+      <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Hot {{hotposts.count}} Trending Topics</h5>
+          <div class="card-body">
+            {% for i in  hotposts %}
+            <div class="row">
+               <a href="{% url 'blog:postview' i.id %}" target="_blank"><span class="badge badge-danger">{{i.post_title|title|slice:"30"}}...</span></a>&nbsp;
+            </div>
+             
+            {% endfor %}
+          </div>
+        </div>
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->
+{% else %}
+<br>
+<br>
+<br>
+
+<h6 style="text-align: center;">Sorry, record not exist yet.<span class="badge badge-primary">Click to create new record !</span></h6>
+{% endif %}
+
+{% endblock %}
+
+        

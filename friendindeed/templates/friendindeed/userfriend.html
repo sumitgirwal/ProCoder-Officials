@@ -1,0 +1,55 @@
+{% extends 'friendindeed/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder |All Users {% endblock %}
+{% block page_title %}All{% endblock %}
+{% block page_body %}Users{% endblock %}
+{% block page_total %}{{users.count}}{% endblock %}
+{% block body %}
+ 
+<form method="get" >
+ <div class="form-row" style="padding-right: 20%;">
+  <div class="form-group col-md-3">
+  {{userfilter.form.full_name}}
+  </div>
+  <div class="form-group col-md-1">
+  <button class="btn btn-outline-success" type="submit">Search</button>    
+  </div>
+</div>
+</form>
+
+ 
+  
+
+
+
+
+
+<br>
+{% if users %}
+<div class="card card-solid" style="background-color: #2e2e2e;">
+  <div class="card-body pb-0">
+    <div class="row" style="text-align: center;">
+      {% for i in users  %}
+        <div class="col-12 col-sm-6 col-md-4 ">
+          <div class="card bg-dark">
+            <div class="card-body"><br>
+              <img src="{% static 'dist/img/user1-128x128.jpg' %}" alt="" class="img-circle img-fluid"><br>
+              <h4 class="lead" style="color:#a8a8a8;"><b>@{{i.user.username}}</b></h4>
+              <h2 class="lead" style="color:#c2c2c2;"><b>{{i.first_name|title}} {{i.last_name|title}}</b></h2>
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'userdashboard' i.id %}" class="btn btn-sm btn-outline-success" title="Send Request">
+              <i class="fas fa-book"></i></a>
+              <a href="{% url 'userprofile' i.id %}" class="btn btn-sm btn-outline-primary" target="_blank">
+              <i class="fas fa-user"></i> View Profile</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% else %}
+<h5 style="text-align: center;color:#bebebe;">Sorry Query Not Found!<span class="badge badge-primary">Research</span></h5>
+{% endif %}
+{% endblock %}

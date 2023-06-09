@@ -1,0 +1,64 @@
+{% extends 'tutorial/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | View Course {% endblock %}
+{% block navbar %}{% include 'tutorial/usernavbar.html' %}{% endblock %}
+{% block body %}
+ 
+ 
+<div class="card card-widget widget-user">
+	<div class="widget-user-header text-white"style="background: url('{% static course.pic.url %}') center center;"></div>
+	<div class="widget-user-image">
+		<img class="img" src="{{course.user.pic.url}}" alt="User Avatar">
+	</div>
+	<br><br><br>
+	<b style="text-align: center;">
+		<h3 class="widget-user-username text-center">{{course.course_name}}</h3>
+		<p class="widget-user-desc text-center "><i>Provider :<a href="{% url 'tutorial:userprofile' course.user.id %}" target="_blank">@{{course.user.user.username}}</a> </i></p>
+
+	</b><br>
+	<div class="container" style="padding: 2%;">
+		<div class="row">
+			<div class="col sm-6">
+				<p><p class="btn btn-warning btn-sm">
+				<i>  <i class="fas fa-users"></i>&nbsp;Enrolled User's <span class="badge badge-light">{{course.courseenroll_set.all.count}}</span></i>	 
+				</p>&nbsp;</p>
+			</div>
+			<div class="col sm-6">
+				{% if not courseenroll  %}
+				<form action="" method="POST">{% csrf_token %}
+					<p class="text-right"><button type="submit" class="btn btn-primary btn-sm">
+					&nbsp;&nbsp;Enroll Me Now !	 <i class="far fa-user mr-1"></i>&nbsp;&nbsp; 
+					</button>&nbsp;</p>
+				</form>
+				{% else %}
+				<p class="text-right"><a   href="{% url 'tutorial:contenthome' course.slug %}" class="btn btn-success btn-sm">
+				&nbsp;&nbsp;Start your remarkable journey ! <i class="fas fa-code mr-1"></i> &nbsp;&nbsp; 
+				</a>&nbsp;</p>
+				{%  endif %}
+			</div>
+		</div>
+	
+		<strong><i class="fas fa-info mr-2"></i>About</strong>
+			<p class="text-muted">
+			{{course.course_description}}
+			</p>
+			<hr>
+		<strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+			<p class="text-muted">
+				{%for i in course.skill.all %}
+				<strong class="badge badge-info">&nbsp;{{i.skill}}&nbsp;</strong>
+
+
+				{% endfor %}
+<!-- 				<svg viewBox="0 0 128 128">
+<path fill="#B3B3B3" d="M63.81 1.026l-59.257 20.854 9.363 77.637 49.957 27.457 50.214-27.828 9.36-77.635z"></path><path fill="#A6120D" d="M117.536 25.998l-53.864-18.369v112.785l45.141-24.983z"></path><path fill="#DD1B16" d="M11.201 26.329l8.026 69.434 44.444 24.651v-112.787z"></path><path fill="#F2F2F2" d="M78.499 67.67l-14.827 6.934h-15.628l-7.347 18.374-13.663.254 36.638-81.508 14.827 55.946zm-1.434-3.491l-13.295-26.321-10.906 25.868h10.807l13.394.453z"></path><path fill="#B3B3B3" d="M63.671 11.724l.098 26.134 12.375 25.888h-12.446l-.027 10.841 17.209.017 8.042 18.63 13.074.242z"></path>
+</svg>  -->
+			</p>
+			 
+			<hr>
+		<strong><i class="far fa-clock mr-1"></i> Published</strong>
+		<p class="text-muted">{{course.modify_date}}</p>
+	</div>      
+</div>
+						
+{% endblock %}

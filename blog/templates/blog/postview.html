@@ -1,0 +1,176 @@
+{% extends 'blog/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | Post View{% endblock %}
+{% block body %}
+
+<div class="row">
+  <div class="col-md-9">
+ 
+    <!-- Box Comment -->
+    <div class="card card-widget">
+      <div class="card-header">
+        <div class="user-block">
+          <img class="img-circle" src="{{post.user.pic.url}}" alt="User Image">
+
+          <span class="username"><a href="{% url 'tutorial:userprofile' post.user.id %}" target="_blank">@{{post.user.user.username}}</a></span>
+          <span class="description">Shared publicly - {{post.created_date}}</span>
+          
+        </div>
+        <!-- /.user-block -->
+        <div class="card-tools">
+          <span class="badge badge-info"><i class="fas fa-eye"></i>&nbsp;{{post.post_view}}&nbsp;</span>
+          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+          </button>
+        </div>
+        <!-- /.card-tools -->
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <h4 style="color:   #6b6b6b;">{{post.post_title|title}}</h4>
+        {% for i in post.category.all %}
+          <a href="/blog/postsearch/?user=&post_title=+&contain=&start_date=&end_date=+&category={{i.id}}" target="_blank"><span class="badge badge-pill badge-primary">{{i.category|title}}</span></a>
+        {% endfor %}
+        <br><br>
+         
+          <img class="img-fluid pad" src="{{post.post_pic.url}}" alt="Photo">
+   
+       
+         <p style="color: #4a4a4a;font-family:Verdana;font-size: 0.9rem;">{{post.post_content|safe}}</p> 
+        </div>
+        <br>
+      <div class="card-footer text-muted">
+          
+            <form action="" method="POST">{% csrf_token %}
+              {% if check %}
+             <button type="submit" name="data" value="notlike" class="btn btn-info btn-sm active" title="Remove like" aria-pressed="true"><i class="fas fa-thumbs-up"></i>&nbsp;Like</button>
+             {% else %}
+              <button type="submit" name="data" value="like" class="btn btn-primary btn-sm" title="Give Like"><i class="far fa-thumbs-up"></i>&nbsp;Like</button>
+              {% endif %}
+            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal{{i.id}}" title="Share"><i class="fas fa-share"></i> Share</button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{i.id}}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Copy & Share</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body"> 
+          <p>http://127.0.0.1:8000/blog/postview/{{i.id}}</p>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+        </div>
+        </div>
+            
+               <span class="float-right text-muted">
+                <span class="badge badge-success">{{post.like_set.all.count}} <i class="fas fa-thumbs-up"></i></span>
+                <span class="badge badge-success"> {{post.comment_set.all.count}} <i class="fas fa-comments"></i></span>
+                    
+                 
+              </span>
+              
+          </form>
+      </div>
+      <!-- /.card-body -->
+          <hr>
+                <div class="card-footer card-comments">
+                  
+                  <div class="card-comment">
+               
+
+                <form action="#" method="POST">{% csrf_token %}
+                  <img class="img-fluid img-circle img-sm" src="{{current_user.pic.url}}" alt="Alt Text">
+                    <div class="img-push">
+                  <textarea name="data" rows="6" cols="70"class="form-control form-control-sm" placeholder="Please share your thoughts..."></textarea>
+          
+                <br>
+                <div class="text text-right">
+                   <button  class="btn btn-primary btn-sm" ><i class="fas fa-location-arrow"></i>&nbsp;Comment</button>
+                  </div>
+                    </div>
+               
+                </form>
+
+             
+                </div>
+                  <div class="card-footer">
+                <!-- /.card-comment -->
+                  {% for comment in post.comment_set.all|dictsortreversed:"id" %}
+                <div class="card-comment">
+                  <!-- User image -->
+                  <img class="img-circle img-sm" src="{{comment.user.pic.url}}" alt="User Image">
+
+                  <div class="comment-text"  style="background-color:#ebebeb;">
+                    <span class="username">
+                      <a href="{% url 'tutorial:userprofile' comment.user.id %}" target="_blank">@{{comment.user.user.username}}</a>
+                      <span class="text-muted float-right"><span class="badge badge-warning">{{comment.created_date}}</span></span>
+                    </span><!-- /.username -->
+                   {{comment.comment}} 
+                  </div>
+                  <!-- /.comment-text -->
+                </div>
+                {% endfor %}
+                 </div>
+                <!-- /.card-comment -->
+                
+
+              </div>
+              <!-- /.card-footer -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
+  <div class="col-md-3">
+        <a href="{% url 'blog:allpost' %}" class="btn btn-warning btn-block" style="font-family:   
+Lucida Sans;">Back</a>
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search Post</h5>
+          <div class="card-body">
+            <div class="input-group">
+            
+              <span class="input-group-btn">
+               &nbsp; <a href="{% url 'blog:postsearch' %}" class="btn btn-outline-warning"  >Customize Searching</a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">All Categories</h5>
+          <div class="card-body">
+            <div class="row">
+             {% for i in  category %}
+              <a href="/blog/postsearch/?user=&post_title=+&contain=&start_date=&end_date=+&category={{i.id}}"><span class="badge badge-info">{{i.category|upper}}</span></a>&nbsp;
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+       <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Hot {{hotposts.count}} Trending Topics</h5>
+          <div class="card-body">
+            {% for i in  hotposts %}
+            <div class="row">
+               <a href="{% url 'blog:postview' i.id %}" target="_blank"><span class="badge badge-danger">{{i.post_title|title|slice:"30"}}...</span></a>&nbsp;
+            </div>
+             
+            {% endfor %}
+          </div>
+        </div>
+  </div>
+  <!-- /.col -->
+</div>
+<!-- /.row -->
+{% endblock %}
+
+        

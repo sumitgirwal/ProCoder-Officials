@@ -1,0 +1,332 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ProCoder | Analysis </title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
+<div class="wrapper">
+  {% include 'tutorial/base/sidebar.html' %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+          <div class="container-fluid">
+              <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Analysis Utility</h1>
+                  </div>
+                  <div class="col-sm-6">
+                      <ol class="breadcrumb float-sm-right">
+                          <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                          <li class="breadcrumb-item active">Analysis</li>
+                      </ol>
+                  </div><!-- /.col -->
+              </div>
+          </div><!-- /.container-fluid -->
+      </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+    <div class="row">
+        <div class="col sm-6">
+            <!-- DONUT CHART -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">User and Admin Information</h3>
+                    <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                  <canvas id="doughnut-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card --> 
+        </div>
+        <div class="col sm-6"> 
+            <!-- PIE CHART -->
+            <div class="card card-info">
+                <div class="card-header">
+                      <h3 class="card-title">Users Status Information</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                     <canvas id="pie-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        <!-- /.card -->
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+            <!-- BAR CHART -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Most Viewed Tutorials</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                      <canvas id="bar-chart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>    
+                    </div>
+                </div>
+            <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+      <div class="col-12">
+
+            <!-- BAR CHART -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Courses Information</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                      <canvas id="bar-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>    
+                    </div>
+                </div>
+            <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <div class="col-12">
+            <!-- LINE CHART -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Quizzes Information</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart">
+                      <canvas id="bar-chart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        
+
+         
+
+    </div>     
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+{% include 'tutorial/base/footer.html' %}
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- ChartJS -->
+<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}"></script>
+
+<script type="text/javascript">
+// Bar chart
+new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    /*horizontalBar*/
+    data: {
+      labels: [{% for i in courses %}"{{ i.course_name|slice:'20' }}...",{% endfor %}],
+      datasets: [
+        {
+          fillColor : "rgba(151,187,205,0.5)",
+            strokeColor : "rgba(151,187,205,1)",
+            pointColor : "rgba(151,187,205,1)",
+            pointStrokeColor : "#fff",
+          label: "Number of users",
+          backgroundColor: "#36648b",
+          data: {{courses_data|safe}}
+        }
+      ]
+    },
+    options: {
+     scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function(value) {if (value % 1 === 0) {return value;}}
+        }
+      }]
+    },
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'No. of user enrolled in {{courses.count}} courses',
+      },
+      responsive              : true,
+      maintainAspectRatio     : false,
+      datasetFill             : false
+    }
+});  
+</script>
+<script type="text/javascript">
+// Bar chart
+new Chart(document.getElementById("bar-chart2"), {
+    type: 'bar',
+    data: {
+      labels: [{% for i in quizzes %}"{{ i.quiz_name|slice:'20' }}...",{% endfor %}],
+      datasets: [
+        {
+          fillColor : "rgba(151,187,205,0.5)",
+            strokeColor : "rgba(151,187,205,1)",
+            pointColor : "rgba(151,187,205,1)",
+            pointStrokeColor : "#fff",
+          label: "No. of users",
+          backgroundColor: "#00688b",
+
+          data: {{quizzes_data|safe}}
+        }
+      ]
+    },
+    options: {
+     scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function(value) {if (value % 1 === 0) {return value;}}
+        }
+      }]
+    },
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'No. of users enrolled in {{quizzes.count}} quizzes',
+      },
+      responsive              : true,
+      maintainAspectRatio     : false,
+      datasetFill             : false
+    }
+});  
+</script>
+<script type="text/javascript">
+// Bar chart
+new Chart(document.getElementById("bar-chart3"), {
+    type: 'bar',
+    /*horizontalBar*/
+    data: {
+      labels: [{% for i in contents %}"{{ i.topic.topic_name|slice:'20' }}...",{% endfor %}],
+      datasets: [
+        {
+          fillColor : "rgba(151,187,205,0.5)",
+            strokeColor : "rgba(151,187,205,1)",
+            pointColor : "rgba(151,187,205,1)",
+            pointStrokeColor : "#fff",
+          label: "Viewed",
+          backgroundColor: "#20b2aa",
+          data: {{contents_data|safe}}
+        }
+      ]
+    },
+    options: {
+     scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function(value) {if (value % 1 === 0) {return value;}}
+        }
+      }]
+    },
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Most viewed {{contents.count}} tutorial',
+      },
+      responsive              : true,
+      maintainAspectRatio     : false,
+      datasetFill             : false
+    }
+});  
+</script>
+<script type="text/javascript">
+  new Chart(document.getElementById("doughnut-chart"), {
+    type: 'doughnut',
+    data: {
+      labels:['User', 'Admin', 'Block', 'Deactive'],
+      datasets: [
+        {
+          label: "No. of Users",
+          backgroundColor: ["#3cb371", "#104e8b","#cd8162", '#cd3700'],
+          data: {{useradmin_data}}
+        }
+      ]
+    },
+    options: {
+         maintainAspectRatio : false,
+      responsive : true,
+      title: {
+        
+        display: true,
+        text: 'No. of User, Admin, Block & Deactive Users.'
+      }
+    }
+});
+</script>
+<script type="text/javascript">
+  new Chart(document.getElementById("pie-chart"), {
+    type: 'pie',
+    data: {
+      labels: ["Active User","Dective User",],
+      datasets: [{
+        label:  "No. of Users",
+        backgroundColor: ["#3cba9f","#c45850",],
+        data: {{useractive_data}}
+      }]
+    },
+    options: {
+      maintainAspectRatio : false,
+      responsive : true,
+      title: {
+        display: true,
+        text: 'No. of active and deactive users.'
+      }
+    }
+});
+</script>
+</body>
+</html>

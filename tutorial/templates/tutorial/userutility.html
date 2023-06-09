@@ -1,0 +1,812 @@
+{% extends 'tutorial/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | User Utility{% endblock %}
+{% block navbar %}{% include 'tutorial/usernavbar.html' %}{% endblock %}
+{% block card_title %}My{%  endblock %}
+{% block card_info %}Utility{%  endblock %}
+{% include 'tutorial/base/messages.html' %}
+{% block body %}
+
+
+<br>
+<div class="card card-info">
+   <div class="card-header  ">
+            <h3 class="card-title">User Key Point Information</h3>
+            <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i></button>
+                </div>
+          </div>
+              
+          <div class="card-body">
+               <!-- Add Form -->
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-5">
+                  <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-xl" >Add Key Point</button><br>
+                </div>
+              </div>
+              <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Key Creation Form</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:white;">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-content">
+                      <div class="model-body">     
+                        <div class="container"><br>
+                          <form class="form-horizontal" action="{% url 'tutorial:keycreate' %}" method="POST"  enctype="multipart/form-data">{% csrf_token %}
+                           <div class="form-row">                            
+                            <div class="form-group col-md-12">
+                              <label>Key Name : </label>
+                                  <input type="text" name="key" class="form-control" placeholder="Enter your key point">
+                            </div>
+                          </div>
+                            <br>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-primary">Add Key Point</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- .Add Form -->
+             {% if key %}
+              <table id="example1" class="table table-bordered table-striped table-hover" >
+                <thead style="text-align: center;" >
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Key Point</th>
+                    <th scope="col">EDIT</th>
+                    <th scope="col">DELETE</th> 
+                  </tr>     
+                </thead>
+                <tbody>
+                  {% for i in key %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <!-- View -->
+                    <td style="text-align:left;"><a href=""  data-toggle="modal" data-target="#bd-example-modal-xl{{i.id}}">{{i.key}}</a></td>
+                      <div class="row">
+                        <div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                          <div class="modal-dialog modal-xl">
+                            <!-- Widget: user widget style 2 -->
+                            <div class="card card-info">
+                              <div class="card-header">
+                              <h3 class="card-title">Key Point View</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                              <div class="modal-content">
+                                <div class="model-body"><br>
+                                  <div class="card-footer">
+                                    <div class="container">
+                                   
+                                    <div class="form-row">
+                                      <div class="form-group col-md-12">
+                                        <label>Key Point : </label>
+                                         <input type="text" class="form-control" value="{{i.key}}" readonly="">
+                                      </div>                                     
+                                    </div>
+                                     <br>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Okay</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>                   
+                      </div>
+                    
+                    <!-- .View -->
+                   
+                    
+                    <!-- Edit -->
+                    <td style="text-align: center;" ><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-xledit{{i.id}}"><i class="fas fa fa-user-edit fa-sm text-light"></i>&nbsp;EDIT</button> </td>
+                      <div class="modal fade bd-example-modal-xledit{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeledit{{i.id}}"   aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="card card-info">
+                            <div class="card-header">
+                              <h3 class="card-title">Key Point Edit Form</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-content">
+                              <div class="model-body"><br>                
+                                <div class="container">
+                                  <form class="form-horizontal" action="{% url 'tutorial:keyedit' i.id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                  <div class="form-row">                            
+                                    <div class="form-group col-md-12">
+                                      <label style="text-align: left;" class="text">Key Point : </label>
+                                       <input type="text" class="form-control" name="key" value="{{i.key}}">
+                                    </div>
+                                  </div>
+                                   <br>   
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-info">Save Change</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   
+                    <!-- .Edit -->
+                    <!-- Delete -->
+                    <td style="text-align: center;">
+                      <button  type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-xldelete{{i.id}}"><i class="fas fa fa-trash-alt fa-sm text-light"></i>&nbsp;DELETE</button></td>
+                      <div class="modal fade bd-example-modal-xldelete{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeldelete{{i.id}}"   aria-hidden="true">
+                      <div class="modal-dialog modal-xl">
+                        <!-- Widget: user widget style 2 -->
+                        <div class="card card-danger">
+                        <div class="card-header">
+                              <h3 class="card-title">Key Point Delete Form</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                          <div class="modal-content">
+                            <div class="model-body"><br>
+                              <div class="card-footer">
+                                <div class="container">
+                                <form class="form-horizontal" action="{% url 'tutorial:keydelete' i.id %}" method="POST">{% csrf_token %}
+                                    <div class="form-row">
+                                      <div class="form-group col-md-12">
+                                        <label style="text-align: left;">key Point : </label>
+                                        <input type="text" class="form-control" value="{{i.key}}" readonly="">
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">  
+                                      <div class="text">
+                                            <p class="card-title" style="font-size: 96%;">Do you want to delete " <i>{{i.key}}</i> ".</p>
+                                      </div>                              
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Yes I'm Sure</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                    <!-- .Delete -->
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+               {% else %}
+                <h6 style="text-align: center;">Sorry, record not exist yet.<span class="badge badge-primary">Click to create new record !</span></h6>
+                {% endif %}
+    </div>
+    <div class="card-footer text-muted"  style="background-color:#e3e3e3">
+        <p>Note : You can create, update or delete key point.</p>
+      </div>
+</div>
+ 
+<!-- -------Worklow------------------------------------------------------------------------ -->
+
+<br>
+<div class="card card-info">
+   <div class="card-header  ">
+            <h3 class="card-title">User Workflow Information</h3>
+            <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i></button>
+                </div>
+          </div>
+              
+          <div class="card-body">
+               <!-- Add Form -->
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-5">
+                  <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-xlworkflow" >Add Workflow </button><br>
+                </div>
+              </div>
+              <div class="modal fade bd-example-modal-xlworkflow" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Workflow Creation Form</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:white;">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-content">
+                      <div class="model-body">     
+                        <div class="container"><br>
+                          <form class="form-horizontal" action="{% url 'tutorial:workflowcreate' %}" method="POST"  enctype="multipart/form-data">{% csrf_token %}
+                           <div class="form-row">                            
+                            <div class="form-group col-md-12">
+                                 <label>Workflow : </label>
+                                  <input type="text" name="workflow" class="form-control" placeholder="Enter your workflow">
+                            </div>
+                          </div>
+                            <br>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-primary">Add Workflow</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- .Add Form -->
+              {% if workflow %}
+              <table id="example1" class="table table-bordered table-striped table-hover" >
+                <thead style="text-align: center;" >
+                  
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Workflow</th>
+                    <th scope="col">EDIT</th>
+                    <th scope="col">DELETE</th> 
+                  </tr>     
+                  
+                </thead>
+                <tbody>
+                  {% for i in workflow %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <!-- View -->
+                    <td style="text-align:left;"><a href=""  data-toggle="modal" data-target="#bd-example-modal-xl{{i.id}}workflow">{{i.workflow}}</a></td>
+                      <div class="row">
+                        <div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl{{i.id}}workflow" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                          <div class="modal-dialog modal-xl">
+                            <!-- Widget: user widget style 2 -->
+                            <div class="card card-info">
+                              <div class="card-header">
+                              <h3 class="card-title">Workflow View</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                              <div class="modal-content">
+                                <div class="model-body"><br>
+                                  <div class="card-footer">
+                                    <div class="container">
+                                   
+                                    <div class="form-row">
+                                      <div class="form-group col-md-12">
+                                        <label>Workflow : </label>
+                                         <input type="text" class="form-control" value="{{i.workflow}}" readonly="">
+                                      </div>                                     
+                                    </div>
+                                     <br>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Okay</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>                   
+                      </div>
+                    
+                    <!-- .View -->
+                   
+                    
+                    <!-- Edit -->
+                    <td style="text-align: center;" ><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-xledit{{i.id}}workflow"><i class="fas fa fa-user-edit fa-sm text-light"></i>&nbsp;EDIT</button> </td>
+                      <div class="modal fade bd-example-modal-xledit{{i.id}}workflow" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeledit{{i.id}}workflow"   aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="card card-info">
+                            <div class="card-header">
+                              <h3 class="card-title">Workflow Edit Form</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-content">
+                              <div class="model-body"><br>                
+                                <div class="container">
+                                  <form class="form-horizontal" action="{% url 'tutorial:workflowedit' i.id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                  <div class="form-row">                            
+                                    <div class="form-group col-md-12">
+                                      <label style="text-align: left;" class="text">Workflow : </label>
+                                       <input type="text" class="form-control" name="workflow" value="{{i.workflow}}">
+                                    </div>
+                                  </div>
+                                   <br>   
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-info">Save Change</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   
+                    <!-- .Edit -->
+                    <!-- Delete -->
+                    <td style="text-align: center;">
+                      <button  type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-xldelete{{i.id}}workflow"><i class="fas fa fa-trash-alt fa-sm text-light"></i>&nbsp;DELETE</button></td>
+                      <div class="modal fade bd-example-modal-xldelete{{i.id}}workflow" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeldelete{{i.id}}workflow"   aria-hidden="true">
+                      <div class="modal-dialog modal-xl">
+                        <!-- Widget: user widget style 2 -->
+                        <div class="card card-danger">
+                        <div class="card-header">
+                              <h3 class="card-title">Workflow Delete Form</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                          <div class="modal-content">
+                            <div class="model-body"><br>
+                              <div class="card-footer">
+                                <div class="container">
+                                <form class="form-horizontal" action="{% url 'tutorial:workflowdelete' i.id %}" method="POST">{% csrf_token %}
+                                    <div class="form-row">
+                                      <div class="form-group col-md-12">
+                                        <label style="text-align: left;">Workflow : </label>
+                                        <input type="text" class="form-control" value="{{i.workflow}}" readonly="">
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">  
+                                      <div class="text">
+                                            <p class="card-title" style="font-size: 96%;">Do you want to delete " <i>{{i.workflow}}</i> ".</p>
+                                      </div>                              
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Yes I'm Sure</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                    <!-- .Delete -->
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table> 
+              {% else %}
+                <h6 style="text-align: center;">Sorry, record not exist yet.<span class="badge badge-primary">Click to create new record !</span></h6>
+                {% endif %}
+    </div>
+    <div class="card-footer text-muted" style="background-color:#e3e3e3">
+        <p>Note : You can create, update or delete workflow.</p>
+      </div>
+</div>
+
+ 
+<!-- -------Intesert------------------------------------------------------------------------ -->
+
+<br>
+<div class="card card-info">
+   <div class="card-header  ">
+            <h3 class="card-title">User Interest Information</h3>
+            <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i></button>
+                </div>
+          </div>
+              
+          <div class="card-body">
+               <!-- Add Form -->
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-5">
+                  <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-xlinterest" >Add Interest </button><br>
+                </div>
+              </div>
+              <div class="modal fade bd-example-modal-xlinterest" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Interest Creation Form</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:white;">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-content">
+                      <div class="model-body">     
+                        <div class="container"><br>
+                          <form class="form-horizontal" action="{% url 'tutorial:interestcreate' %}" method="POST"  enctype="multipart/form-data">{% csrf_token %}
+                           <div class="form-row">                            
+                            <div class="form-group col-md-12">
+                              <label>Interest : </label>
+                                  <input type="text" name="interest" class="form-control" placeholder="Enter your interest">
+                            </div>
+                          </div>
+                            <br>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-primary">Add Interest</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- .Add Form -->
+              {% if interest %}
+              <table id="example1" class="table table-bordered table-striped table-hover" >
+                <thead style="text-align: center;" >
+                  
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Interest</th>
+                    <th scope="col">EDIT</th>
+                    <th scope="col">DELETE</th> 
+                  </tr>     
+                  
+                </thead>
+                <tbody>
+                  {% for i in interest %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <!-- View -->
+                    <td style="text-align:left;"><a href=""  data-toggle="modal" data-target="#bd-example-modal-xl{{i.id}}interest">{{i.interest}}</a></td>
+                      <div class="row">
+                        <div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl{{i.id}}interest" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                          <div class="modal-dialog modal-xl">
+                            <!-- Widget: user widget style 2 -->
+                            <div class="card card-info">
+                              <div class="card-header">
+                              <h3 class="card-title">Interest View</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                              <div class="modal-content">
+                                <div class="model-body"><br>
+                                  <div class="card-footer">
+                                    <div class="container">
+                                   
+                                    <div class="form-row">
+                                      <div class="form-group col-md-12">
+                                        <label>Interest : </label>
+                                         <input type="text" class="form-control" value="{{i.interest}}" readonly="">
+                                      </div>                                     
+                                    </div>
+                                     <br>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Okay</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>                   
+                      </div>
+                    
+                    <!-- .View -->
+                   
+                    
+                    <!-- Edit -->
+                    <td style="text-align: center;" ><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-xledit{{i.id}}interest"><i class="fas fa fa-user-edit fa-sm text-light"></i>&nbsp;EDIT</button> </td>
+                      <div class="modal fade bd-example-modal-xledit{{i.id}}interest" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeledit{{i.id}}interest"   aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="card card-info">
+                            <div class="card-header">
+                              <h3 class="card-title">Interest Edit Form</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-content">
+                              <div class="model-body"><br>                
+                                <div class="container">
+                                  <form class="form-horizontal" action="{% url 'tutorial:interestedit' i.id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                  <div class="form-row">                            
+                                    <div class="form-group col-md-12">
+                                      <label style="text-align: left;" class="text">Interest : </label>
+                                       <input type="text" class="form-control" name="interest" value="{{i.interest}}">
+                                    </div>
+                                  </div>
+                                   <br>   
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-info">Save Change</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   
+                    <!-- .Edit -->
+                    <!-- Delete -->
+                    <td style="text-align: center;">
+                      <button  type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-xldelete{{i.id}}interest"><i class="fas fa fa-trash-alt fa-sm text-light"></i>&nbsp;DELETE</button></td>
+                      <div class="modal fade bd-example-modal-xldelete{{i.id}}interest" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeldelete{{i.id}}interest"   aria-hidden="true">
+                      <div class="modal-dialog modal-xl">
+                        <!-- Widget: user widget style 2 -->
+                        <div class="card card-danger">
+                        <div class="card-header">
+                              <h3 class="card-title">Interest Delete Form</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                          <div class="modal-content">
+                            <div class="model-body"><br>
+                              <div class="card-footer">
+                                <div class="container">
+                                <form class="form-horizontal" action="{% url 'tutorial:interestdelete' i.id %}" method="POST">{% csrf_token %}
+                                    <div class="form-row">
+                                      <div class="form-group col-md-12">
+                                        <label style="text-align: left;">Interest : </label>
+                                        <input type="text" class="form-control" value="{{i.interest}}" readonly="">
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">  
+                                      <div class="text">
+                                            <p class="card-title" style="font-size: 96%;">Do you want to delete " <i>{{i.interest}}</i> ".</p>
+                                      </div>                              
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Yes I'm Sure</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                    <!-- .Delete -->
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+                <h6 style="text-align: center;">Sorry, record not exist yet.<span class="badge badge-primary">Click to create new record !</span></h6>
+                {% endif %}
+    </div>
+    <div class="card-footer text-muted" style="background-color:#e3e3e3">
+        <p>Note : You can create, update or delete interest.</p>
+      </div>
+</div>
+
+ 
+<!-- -------Award------------------------------------------------------------------------ -->
+
+<br>
+<div class="card card-info">
+   <div class="card-header  ">
+            <h3 class="card-title">User Award Information</h3>
+            <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i></button>
+                </div>
+          </div>
+              
+          <div class="card-body">
+               <!-- Add Form -->
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-5">
+                  <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target=".bd-example-modal-xlAward" >Add Award </button><br>
+                </div>
+              </div>
+              <div class="modal fade bd-example-modal-xlAward" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Award Creation Form</h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color:white;">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-content">
+                      <div class="model-body">     
+                        <div class="container"><br>
+                          <form class="form-horizontal" action="{% url 'tutorial:awardcreate' %}" method="POST"  enctype="multipart/form-data">{% csrf_token %}
+                           <div class="form-row">                            
+                            <div class="form-group col-md-12">
+                              <label>Award : </label>
+                                  <input type="text" name="award" class="form-control" placeholder="Enter your award">
+                            </div>
+                          </div>
+                            <br>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-primary">Add Award</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- .Add Form -->
+             {% if award %}
+              <table id="example1" class="table table-bordered table-striped table-hover" >
+                <thead style="text-align: center;" >
+                  
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Award</th>
+                    <th scope="col">EDIT</th>
+                    <th scope="col">DELETE</th> 
+                  </tr>     
+                  
+                </thead>
+                <tbody>
+                  {% for i in award %}
+                  <tr>
+                    <td>{{forloop.counter}}</td>
+                    <!-- View -->
+                    <td style="text-align:left;"><a href=""  data-toggle="modal" data-target="#bd-example-modal-xl{{i.id}}award">{{i.award}}</a></td>
+                      <div class="row">
+                        <div class="modal fade bd-example-modal-xl" id="bd-example-modal-xl{{i.id}}award" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"   aria-hidden="true">
+                          <div class="modal-dialog modal-xl">
+                            <!-- Widget: user widget style 2 -->
+                            <div class="card card-info">
+                              <div class="card-header">
+                              <h3 class="card-title">Award View </h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                              <div class="modal-content">
+                                <div class="model-body"><br>
+                                  <div class="card-footer">
+                                    <div class="container">
+                                   
+                                    <div class="form-row">
+                                      <div class="form-group col-md-12">
+                                        <label>Award : </label>
+                                         <input type="text" class="form-control" value="{{i.award}}" readonly="">
+                                      </div>                                     
+                                    </div>
+                                     <br>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-success" data-dismiss="modal">Okay</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>                   
+                      </div>
+                    
+                    <!-- .View -->
+                   
+                    
+                    <!-- Edit -->
+                    <td style="text-align: center;" ><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target=".bd-example-modal-xledit{{i.id}}award"><i class="fas fa fa-user-edit fa-sm text-light"></i>&nbsp;EDIT</button> </td>
+                      <div class="modal fade bd-example-modal-xledit{{i.id}}award" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeledit{{i.id}}award"   aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="card card-info">
+                            <div class="card-header">
+                              <h3 class="card-title">Award Edit Form</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-content">
+                              <div class="model-body"><br>                
+                                <div class="container">
+                                  <form class="form-horizontal" action="{% url 'tutorial:awardedit' i.id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                  <div class="form-row">                            
+                                    <div class="form-group col-md-12">
+                                      <label style="text-align: left;" class="text">Award : </label>
+                                       <input type="text" class="form-control" name="award" value="{{i.award}}">
+                                    </div>
+                                  </div>
+                                   <br>   
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-info">Save Change</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   
+                    <!-- .Edit -->
+                    <!-- Delete -->
+                    <td style="text-align: center;">
+                      <button  type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bd-example-modal-xldelete{{i.id}}award"><i class="fas fa fa-trash-alt fa-sm text-light"></i>&nbsp;DELETE</button></td>
+                      <div class="modal fade bd-example-modal-xldelete{{i.id}}award" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabeldelete{{i.id}}award"   aria-hidden="true">
+                      <div class="modal-dialog modal-xl">
+                        <!-- Widget: user widget style 2 -->
+                        <div class="card card-danger">
+                        <div class="card-header">
+                              <h3 class="card-title">Award Delete Form</h3>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true" style="color:white;">&times;</span>
+                              </button>
+                            </div>
+                          <div class="modal-content">
+                            <div class="model-body"><br>
+                              <div class="card-footer">
+                                <div class="container">
+                                <form class="form-horizontal" action="{% url 'tutorial:awarddelete' i.id %}" method="POST">{% csrf_token %}
+                                    <div class="form-row">
+                                      <div class="form-group col-md-12">
+                                        <label style="text-align: left;">Award : </label>
+                                        <input type="text" class="form-control" value="{{i.award}}" readonly="">
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">  
+                                      <div class="text">
+                                            <p class="card-title" style="font-size: 96%;">Do you want to delete " <i>{{i.award}}</i> ".</p>
+                                      </div>                              
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Yes I'm Sure</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                    <!-- .Delete -->
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+                {% else %}
+                <h6 style="text-align: center;">Sorry, record not exist yet.<span class="badge badge-primary">Click to create new record !</span></h6>
+                {% endif %}
+    </div>
+    <div class="card-footer text-muted" style="background-color:#e3e3e3">
+        <p>Note : You can create, update or delete award.</p>
+      </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+ 

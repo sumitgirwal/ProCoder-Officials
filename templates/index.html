@@ -1,0 +1,563 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ProCoder | Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel = "icon" href ="https://procodersp.blogspot.com/favicon.ico" type = "image/x-icon"> 
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'procoder/fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'procoder/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'procoder/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'procoder/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'procoder/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'procoder/css/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'procoder/css/jquery.fancybox.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'procoder/css/bootstrap-datepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'procoder/fonts/flaticon/font/flaticon.css' %}">
+
+    <link rel="stylesheet" href="{% static 'procoder/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'procoder/css/style.css' %}">
+ 
+  </head>
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+  
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+   
+    <div class="border-bottom top-bar py-2 bg-dark" id="home-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="mb-0">
+              <span class="mr-3"><strong class="text-white">Team:</strong> <a href="">ProCoder</a></span>
+              <span><strong class="text-white">Email:</strong> <a href="#">xyzabc@gmail.com</a></span>
+            </p>
+          </div>
+          <div class="col-md-6">
+            <ul class="social-media">
+                {% if not request.user.is_authenticated %}
+                 <li><a href="{% url 'tutorial:login_page' %}" class="p-2">Login</a></li>
+                  <li><a href="{% url 'tutorial:register_page' %}" class="p-2">Register</a></li>
+                 {% else %} 
+                 <li><a href="{% url 'tutorial:logout_page' %}" class="p-2">Logout</a></li>
+                 {% endif %}
+                  <li><a href="{% url 'tutorial:feedback_page' %}" class="p-2">Feedback</a></li>
+              <li><a href="#" class="p-2"><span class="icon-github"></span></a></li>
+              <li><a href="#" class="p-2"><span class="icon-linkedin"></span></a></li>
+              <li><a href="#" class="p-2"><span class="icon-youtube-play"></span></a></li>
+              <li><a href="#" class="p-2"><span class="icon-google-plus"></span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div> 
+    </div>
+
+    <header class="site-navbar py-4 bg-white js-sticky-header site-navbar-target" role="banner">
+
+      <div class="container">
+        <div class="row align-items-center">
+          
+          <div class="col-11 col-xl-2">
+            <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">ProCoder<span class="text-primary">.</span> </a></h1>
+          </div>
+          <div class="col-12 col-md-10 d-none d-xl-block">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li><a href="#home-section" class="nav-link">Home</a></li>
+                <li><a href="#work-section" class="nav-link">Why us</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#services-section" class="nav-link">Services</a></li>
+                <li><a href="#about-section" class="nav-link">About</a>              
+                </li>
+                <li><a href="#blog-section" class="nav-link">Blog</a></li>
+                
+              
+
+              </ul>
+            </nav>
+          </div>
+
+
+          <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+
+        </div>
+      </div>
+      
+    </header>
+
+  
+
+    <div class="site-blocks-cover overlay" style="background-image: url('http://127.0.0.1:8000/static/tutorial/img/p11_4.jpg');" data-aos="fade" >
+      <div class="container">
+        <div class="row align-items-center justify-content-center text-center">
+
+          <div class="col-md-12" data-aos="fade-up" data-aos-delay="400">
+                        
+            <div class="row justify-content-center mb-4">
+              <div class="col-md-8 text-center">
+                <h1>We love to <span class="typed-words"></span></h1>
+                <p class="lead mb-5">Welcome to<a href="{% url 'index' %}" target="_blank">  ProCoder!</a></p>
+                <div>
+                  <a href="{% url 'tutorial:index' %}" class="btn btn-outline-primary "><span class="icon icon-devices_other mr-2"></span>&nbsp;Tutorial</a>
+                  <a href="{% url 'blog:index' %}" class="btn btn-outline-success "><span class="icon icon-pageview mr-2"></span>&nbsp;ProBlog</a>
+                  <a href="{% url 'friendindeed:index' %}" class="btn btn-outline-light "><span class="icon icon-comments mr-2"></span>&nbsp;Indeed</a>
+                  <a href="{% url 'tutorial:index' %}" class="btn btn-outline-success "><span class="icon icon-github mr-2"></span>&nbsp;Github</a>
+                    <a href="{% url 'tutorial:index' %}" class="btn btn-outline-dark "><span class="icon icon-stack-overflow mr-2"></span>&nbsp;Stackoverflow</a>
+                  <a href="https://www.youtube.com/channel/UCndwnWD05Jk3gXm2K5aXKYQ" class="btn btn-outline-danger "><span class="icon icon-youtube-play mr-2"></span>&nbsp;Youtube</a> </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>  
+
+
+    
+
+    <section class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-4">
+            <div class="p-3 box-with-humber">
+              <div class="number-behind">01.</div>
+              <h2 class="text-primary">Simple and easy</h2>
+              <p class="mb-4">Learn programming in the simplest way possible.</p>
+              <ul class="list-unstyled ul-check primary">
+                <li>Tutorial</li>
+                <li>Blogger</li>
+                <li>Chating</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="p-3 box-with-humber">
+              <div class="number-behind">02.</div>
+              <h2 class="text-primary">Learning</h2>
+              <p class="mb-4">We’re here to help you improve as fast as possible. With us, you’ll always be studying with the most updated, tried-and-tested videos & study materials. We don't overwhelm you with a lot of ineffective materials.</p>
+              <ul class="list-unstyled ul-check primary">
+                <li>Amazing</li>
+                <li>Fast </li>
+                <li>Adventurous</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="p-3 box-with-humber">
+              <div class="number-behind">03.</div>
+              <h2 class="text-primary">Practice</h2>
+              <p class="mb-4">We will engage you with resourceful communications like exam updates, tips & tricks and other useful messages that helps you focus and improve on your learning. Our communication are targeted and oriented to help you learn better.</p>
+              <ul class="list-unstyled ul-check primary">
+                <li>Constant Comunication</li>
+                <li>Discussion Forum</li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="site-section" id="work-section">
+      <div class="container">
+        <div class="row mb-5 justify-content-center">
+          <div class="col-md-8 text-center">
+            <h2 class="text-black h1 site-section-heading text-center">Why us?</h2>
+            <p class="lead">Give us your time and you will be filled with confidence of knowledge.</p>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+            
+         
+           
+
+          <div class="col-md-6 col-lg-4">
+            <a href="images/img_4.jpg" class="media-1" data-fancybox="gallery">
+              <img src="{% static 'tutorial/img/p3.jpg' %}" alt="Image" class="img-fluid">
+              <div class="media-1-content">
+                <h2>Tutorial</h2>
+                <span class="category">Free Learning</span>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a href="images/img_5.jpg" class="media-1" data-fancybox="gallery">
+              <img src="{% static 'procoder/images/freelearning.jpg' %}" alt="Image" class="img-fluid">
+              <div class="media-1-content">
+                <h2>Pro Blog</h2>
+                <span class="category">Share Your Thoughts</span>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <a href="images/img_6.jpg" class="media-1" data-fancybox="gallery">
+              <img src="{% static 'procoder/images/indeed.jpg' %}" alt="Image" class="img-fluid">
+              <div class="media-1-content">
+                <h2>Indeed</h2>
+                <span class="category">Stay Connected</span>
+              </div>
+            </a>
+          </div>
+
+         
+        </div>
+      </div>
+    </section>
+
+    <section class="section ft-feature-1">
+      <div class="container">
+        <div class="row align-items-stretch">
+          <div class="col-12 bg-black w-100 ft-feature-1-content">
+            <div class="row align-items-center">
+              <div class="col-lg-5">
+                
+                  <img src="{% static 'procoder/images/about_1.jpg' %}" alt="Image" class="img-fluid mb-4 mb-lg-0">
+                
+              </div>
+              <div class="col-lg-3 ml-auto">
+                <div class="mb-5">
+                  <h3 class="d-flex align-items-center"><span class="icon icon-beach_access mr-2"></span><span>Schedule</span></h3>
+                  <p>Study any topic, anytime. Choose from thousands of expert-led courses now.</p>
+                 
+                </div>
+
+                <div>
+                  <h3 class="d-flex align-items-center"><span class="icon icon-build mr-2"></span><span>Professional!</span></h3>
+                  <p> Start from the basics and go all the way to creating your own applications and games!</p>
+                   
+                </div>
+
+              </div>
+              <div class="col-lg-3">
+                <div class="mb-5">
+                  <h3 class="d-flex align-items-center"><span class="icon icon-format_paint mr-2"></span><span>Understanding </span></h3>
+                  <p>Build a complete understanding of courses from the ground up!</p>
+                   
+                </div>
+
+                <div>
+                  <h3 class="d-flex align-items-center"><span class="icon icon-question_answer mr-2"></span><span>Zero to hero</span></h3>
+                  <p>Transfer your knowledge from basic to next level.</p>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="site-section testimonial-wrap" id="testimonials">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 text-center">
+            <h2 class="text-black h1 site-section-heading text-center">Testimonials</h2>
+          </div>
+        </div>
+      </div>
+      <div class="slide-one-item home-slider owl-carousel">
+          <div>
+            <div class="testimonial">
+              
+              <blockquote class="mb-5">
+                <p>&ldquo;Talk is cheap. Show me the code.&rdquo;</p>
+              </blockquote>
+
+              <figure class="mb-4 d-flex align-items-center justify-content-center">
+                
+                <p>Linus Torvalds</p>
+              </figure>
+            </div>
+          </div>
+          <div>
+            <div class="testimonial">
+
+              <blockquote class="mb-5">
+                <p>&ldquo;when you don't create things, you become defined by your tastes rather than ability. your tastes only narrow & exclude people. so create&rdquo;</p>
+              </blockquote>
+              <figure class="mb-4 d-flex align-items-center justify-content-center">
+                 
+                <p>Why The Lucky Stiff</p>
+              </figure>
+              
+            </div>
+          </div>
+
+          <div>
+            <div class="testimonial">
+
+              <blockquote class="mb-5">
+                <p>&ldquo;Programs must be written for people to read, and only incidentally for machines to execute&rdquo;</p>
+              </blockquote>
+              <figure class="mb-4 d-flex align-items-center justify-content-center">
+                
+                <p>Harold Abelson</p>
+              </figure>
+
+              
+            </div>
+          </div>
+
+          <div>
+            <div class="testimonial">
+
+              <blockquote class="mb-5">
+                <p>&ldquo;I'm not a great programmer; I'm just a good programmer with great habits.&rdquo;</p>
+              </blockquote>
+              <figure class="mb-4 d-flex align-items-center justify-content-center">
+                
+                <p>Smith Summers</p>
+              </figure>
+
+            </div>
+          </div>
+
+        </div>
+    </section>
+
+    <section class="site-section border-bottom" id="services-section">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-8 text-center" data-aos="fade-up">
+            <h2 class="text-black h1 site-section-heading text-center">Our Services</h2>
+          </div>
+        </div>
+        <div class="row align-items-stretch">
+          <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up">
+            <div class="unit-4 d-flex">
+              <div class="unit-4-icon mr-4"><span class="text-primary icon-laptop2"></span></div>
+              <div>
+                <h3>Learning Way</h3>
+                <p>You can use any device !</p>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="unit-4 d-flex">
+              <div class="unit-4-icon mr-4"><span class="text-primary icon-pencil"></span></div>
+              <div>
+                <h3>Practice</h3>
+                <p>We will engage you with resourseful communications like exam updates, tips with useful messages!</p>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="unit-4 d-flex">
+              <div class="unit-4-icon mr-4"><span class="text-primary icon-paper-plane"></span></div>
+              <div>
+                <h3>Fast</h3>
+                <p>We're here to help you improve as fast as possible</p>
+               
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="unit-4 d-flex">
+              <div class="unit-4-icon mr-4"><span class="text-primary icon-question-circle"></span></div>
+              <div>
+                <h3>Question & Answer</h3>
+                <p>We will clear your all doubts and queries.</p>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="unit-4 d-flex">
+              <div class="unit-4-icon mr-4"><span class="text-primary icon-extension"></span></div>
+              <div>
+                <h3>Learn Skills</h3>
+                <p>Like business, analytics, graphic design, programming and many more.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="500">
+            <div class="unit-4 d-flex">
+              <div class="unit-4-icon mr-4"><span class="text-primary icon-phonelink"></span></div>
+              <div>
+                <h3>Upskill Your Organization</h3>
+                <p>With on-demand training and development programs</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="site-section" id="about-section">
+      <div class="container">
+        <div class="row mb-5">
+          
+          <div class="col-md-5 ml-auto mb-5 order-md-2" data-aos="fade">
+            <img src="{% static 'tutorial/img/p9.jpg' %}" alt="Image" class="img-fluid rounded">
+          </div>
+          <div class="col-md-6 order-md-1" data-aos="fade">
+
+            <div class="row">
+
+              <div class="col-12">
+                <div class="text-left pb-1">
+                  <h2 class="text-black h1 site-section-heading">About Us</h2>
+                </div>
+              </div>
+              <div class="col-12 mb-4">
+                <p class="lead">This website provides tutorials of various programming languages and Computer subjects. The sole purpose of this website is to provide learning content for the students and professionals.We understand your attachment with the content, so committed to deliver you the best possible material.</p>
+              </div>
+              <div class="col-md-12 mb-md-5 mb-0 col-lg-6">
+                <div class="unit-4">
+                  <div class="unit-4-icon mr-4 mb-3"><span class="text-secondary icon-phonelink"></span></div>
+                  <div>
+                    <h3>ProCoder Team</h3>
+                    <p>This project build with Python, Django, Bootstrap,
+JQuery, HTML, CSS, Javascript</p>
+                    
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  
+
+    <section class="site-section" id="blog-section">
+      <div class="container">
+        <div class="row justify-content-center mb-5">
+          <div class="col-md-8 text-center">
+            <h2 class="text-black h1 site-section-heading text-center">Recent {{post.count}} Posts</h2>
+          </div>
+        </div>
+
+        <div class="row">
+           
+          {% for i in post %} 
+          <div class="col-md-6 col-lg-4 mb-4 mb-lg-4">
+            <div class="h-entry">
+              <a href="single.html"><img src="{{i.post_pic.url}}" alt="Image" class="img-fluid"></a>
+              <h2 class="font-size-regular"><a href="{% url 'blog:postview' i.id %}">{{i.post_title|title}}</a></h2>
+              <div class="meta mb-4">James Phelps <span class="mx-2">&bullet;</span> {{i.created_date}}<span class="mx-2">&bullet;</span></div>  
+            
+               
+            </div> 
+          </div>
+          {% endfor %}
+          
+        </div>
+      </div>
+    </section>
+
+   
+
+
+  
+   
+    <a href="{% url 'tutorial:register_page' %}" class="bg-primary py-5 d-block">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md10"><h2 class="text-white">Let's Get Started</h2></div>
+        </div>
+      </div>  
+    </a>
+    
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-9">
+                <h2 class="footer-heading mb-4">About Us</h2>
+                <p>This website provides tutorials of various programming languages and Computer subjects. The sole purpose of this website is to provide learning content for the students and professionals.We understand your attachment with the content, so committed to deliver you the best possible material.</p>
+              </div>
+             
+              <div class="col-md-3">
+                <h2 class="footer-heading mb-4">Follow Us</h2>
+                <a href="#" class="pl-0 pr-3"><span class="icon-github"></span></a>
+                <a href="#" class="pl-3 pr-3"><span class="icon-stack-overflow"></span></a>
+                <a href="#" class="pl-3 pr-3"><span class="icon-youtube-play"></span></a>
+                <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <div class="border-top pt-5">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="#" target="_blank" >Procoder</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </footer>
+
+  </div> <!-- .site-wrap -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="{% static 'procoder/js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'procoder/js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'procoder/js/jquery-ui.js' %}"></script>
+  <script src="{% static 'procoder/js/popper.min.js' %}"></script>
+  <script src="{% static 'procoder/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'procoder/js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'procoder/js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'procoder/js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'procoder/js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'procoder/js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'procoder/js/aos.js' %}"></script>
+  <script src="{% static 'procoder/js/jquery.fancybox.min.js' %}"></script>
+  <script src="{% static 'procoder/js/jquery.sticky.js' %}"></script>
+
+  <script src="{% static 'procoder/js/typed.js' %}"></script>
+            <script>
+            var typed = new Typed('.typed-words', {
+            strings: ["Programming.","Python.","Django."],
+            typeSpeed: 80,
+            backSpeed: 80,
+            backDelay: 4000,
+            startDelay: 1000,
+            loop: true,
+            showCursor: true
+            });
+            </script>
+
+  <script src="{% static 'procoder/js/main.js' %}"></script>
+  
+
+
+  </body>
+</html>

@@ -1,0 +1,490 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>ProCoder | Friend Indeed</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel = "icon" href ="https://procodersp.blogspot.com/favicon.ico" type = "image/x-icon"> 
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    
+    <!-- Place favicon.ico in the root directory -->
+
+      <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+      <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'friendindeed/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'friendindeed/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'friendindeed/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'friendindeed/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'friendindeed/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'friendindeed/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'friendindeed/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'friendindeed/css/gijgo.css' %}">
+    <link rel="stylesheet" href="{% static 'friendindeed/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'friendindeed/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'friendindeed/css/slicknav.css' %}">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href="{% static 'friendindeed/css/style.css' %}">
+    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+
+      <style type="text/css">
+    .img {
+    float:  left;
+    width:  100px;
+    height: 190px;
+    background-size: cover;
+     border-radius: 50%;
+      border:8px solid #ffe1ff;
+}
+  </style>
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+    <!-- header-start -->
+    <header>
+        <div class="header-area ">
+            <div id="sticky-header" class="main-header-area">
+                <div class="container-fluid">
+                    <div class="header_bottom_border">
+                        <div class="row align-items-center">
+                            <div class="col-xl-2 col-lg-2">
+                                <div class="logo">
+                                    <a href="index.html">
+                                        <!-- <img src="{% static 'friendindeed/img/logo.png' %}" alt=""> -->
+                                        <h1 class="mb-0 site-logo"><a href="{% url 'index' %}" class="text-black h2 mb-0" style="color:#636363;">ProCoder<span class="text-primary">.</span> </a></h1>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="main-menu  d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a class="active" href="">Home</a></li>
+                                            {% if request.user.is_authenticated %}
+                                           <li><a href="{% url 'friendindeed:userdashboard' 'CRNONE' %}">User Dashboard</a></li>
+                                           <li><a href="{% url 'tutorial:logout_page'  %}">Logout</a></li>
+                                                        
+                                            {% else  %}
+                                             <li><a href="{% url 'tutorial:login_page' %}">Login</a></li>
+                                            <li><a href="{% url 'tutorial:register_page'  %}">Register</a></li>
+                                           
+                                            {% endif %}
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 d-none d-lg-block">
+                                <div class="social_wrap d-flex align-items-center justify-content-end">
+                                    <div class="number">
+                                        <p> <i class="fas fa-comment-dots"></i> Friend Indeed</p>
+                                    </div>
+                                    <div class="social_links d-none d-xl-block">
+                                        <ul>
+                                           
+                                              <li><a href="{% url 'tutorial:index' %}"> <i class="fas fa-chalkboard-teacher" title="Tutorial"></i> </a></li>  <li><a href="{% url 'blog:index' %}" title="Pro Blog"> <i class="fas fa-blog"></i> </a></li>
+                                            <li><a href="#"> <i class="fa fa-github"></i> </a></li>
+                                            <li><a href="#"> <i class="fa fa-linkedin"></i> </a></li>
+                                             
+                                            <li><a href="#"> <i class="fa fa-google-plus"></i> </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header-end -->
+
+       <!-- newletter_area_start  -->
+    <div class="newletter_area overlay">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-10">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="newsletter_text">
+                                <h1 style="color:#f8f8ff;text-align: center;font-family: Lucida Handwriting;">Friend Indeed!</h1>
+                                <h3 style="color:#cfcfcf;text-align: center;">A <i style="color:#00688b;">FRIEND</i> IN NEED IS A FRIEND <i style="color:#00688b;">INDEED.</i></h3>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- newletter_area_end  -->
+
+    <!-- where_togo_area_start  -->
+    <div class="where_togo_area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="form_area align-items-center">
+                        <h3 style="text-align: center;">The purpose of our lives is to be happy.<i class="fas fa-smile " style="color:#ff6a6a;"></i></h3>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- where_togo_area_end  -->
+    <!-- slider_area_start -->
+    <div class="slider_area">
+        <div class="slider_active owl-carousel">
+            <div class="single_slider  d-flex align-items-center slider_bg_1 overlay">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="slider_text text-center">
+                                <h3>Indonesia</h3>
+                                <p>Pixel perfect design with awesome contents</p>
+                                <a href="#" class="boxed-btn3">Explore Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single_slider  d-flex align-items-center slider_bg_2 overlay">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="slider_text text-center">
+                                <h3>Australia</h3>
+                                <p>Pixel perfect design with awesome contents</p>
+                                <a href="#" class="boxed-btn3">Explore Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single_slider  d-flex align-items-center slider_bg_3 overlay">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="slider_text text-center">
+                                <h3>Switzerland</h3>
+                                <p>Pixel perfect design with awesome contents</p>
+                                <a href="#" class="boxed-btn3">Explore Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- slider_area_end -->
+
+
+
+ 
+
+
+    <div class="travel_variation_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_travel text-center">
+                        <div class="icon">
+                           <h1 style="color:#ff6a6a;"><i class="far fa-smile"></i></h1>
+                        </div>
+                        <h3>Fast and Easy</h3>
+                        <p>Fast and simple to understand.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_travel text-center">
+                        <div class="icon">
+                            <h1 style="color:#ff6a6a;"><i class="fas fa-lock"></i></h1>
+                           
+                        </div>
+                        <h3>Secure</h3>
+                        <p>Full security and authentication.</p>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single_travel text-center">
+                        <div class="icon">
+                             <h1 style="color:#ff6a6a;"><i class="fas fa-tablet-alt"></i></h1>
+                        </div>
+                        
+                        <h3>Any Where</h3>
+                        <p>Anytime anywhere any device.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- testimonial_area  -->
+    <div class="testimonial_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="testmonial_active owl-carousel">
+                        <div class="single_carousel">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="single_testmonial text-center">
+                                        <div class="author_thumb">
+                                            <img src="{% static 'friendindeed/img/testmonial/author.png' %}" alt="">
+                                        </div>
+                                        <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
+                                        <div class="testmonial_author">
+                                            <h3>- Micky Mouse</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_carousel">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="single_testmonial text-center">
+                                        <div class="author_thumb">
+                                            <img src="{% static 'friendindeed/img/testmonial/author.png' %}" alt="">
+                                        </div>
+                                        <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
+                                        <div class="testmonial_author">
+                                            <h3>- Tom Mouse</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_carousel">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="single_testmonial text-center">
+                                        <div class="author_thumb">
+                                            <img src="{% static 'friendindeed/img/testmonial/author.png' %}" alt="">
+                                        </div>
+                                        <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
+                                        <div class="testmonial_author">
+                                            <h3>- Jerry Mouse</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /testimonial_area  -->
+
+
+    <div class="recent_trip_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="section_title text-center mb_70">
+                        <h3>Recent 6 Members </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for i in users %}
+                <div class="col-lg-4 col-md-6 "  style="text-align: center;">
+                    <div class="single_trip">
+                        <div class="thumb">
+                            <img src="{{i.pic.url}}" alt="User_image" class="img" style="    object-fit: cover;object-position: top;">
+                        </div>
+                        <div class="info">
+                            <div class="date">
+                                <span>{{i.created_date}}</span>
+                            </div>
+                            <a href="{% url 'tutorial:userprofile' i.id %}">
+                                <h3>{{i.user.username|title}}</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+               
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-lg-4 ">
+                        <div class="footer_widget" >
+                            <div class="footer_logo">
+                                 <h1 class="mb-0 site-logo"><a href="{% url 'index' %}" class="text-black h2 mb-0" style="color:#636363;">ProCoder<span class="text-primary">.</span> </a></h1>
+                            </div>
+                          
+                            <div class="socail_links">
+                                  <li>
+                                <a href="#" style="color:#c4c4c4;" >Smith Summer's</a> <br>
+                                </li>
+                                  <li>
+                                <a href="#" style="color:#c4c4c4;">xyzabs@gmail.com</a>
+                                </li>
+                            
+                                <ul>
+                                  
+                                    <li>
+                                        <a href="#">
+                                            <i class="ti-github"></i>
+                                        </a>
+                                    </li>
+                                     <li>
+                                        <a href="#">
+                                            <i class="ti-linkedin"></i>
+                                        </a>
+                                    </li>
+                                    
+                                     
+                                    
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-youtube-play"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-5 col-md-6 col-lg-2">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                ProCoder Supports
+                            </h3>
+                            <ul class="links">
+                                <li><a href="{% url 'tutorial:index' %}"><i class="fas fa-chalkboard-teacher" title="Tutorial"></i> Tutorial</a></li>
+                                <li><a href="{% url 'blog:index' %}"><i class="fas fa-blog" title="ProBlog"></i> Pro Blog</a></li>
+                                <li><a href="{% url 'friendindeed:index' %}"><i class="fas fa-comments" title="Friend Indeed"></i> Indeed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                  
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Recently Posts
+                            </h3>
+                            <div class="instagram_feed">
+                                
+                                {% for i in posts %}
+                                
+                                <div class="single_insta">
+                                    <a href="{% url 'blog:postview' i.id %}">
+                                        <img src="{{i.post_pic.url}}" alt="Post Image">
+                                    </a>
+                                </div>
+                                {% endfor %}  
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right_text">
+            <div class="container">
+                <div class="footer_border"></div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="copy_right text-center">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="" target="_blank">ProCoder</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+  <!-- Modal -->
+  <div class="modal fade custom_search_pop" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="serch_form">
+            <input type="text" placeholder="Search" >
+            <button type="submit">search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- link that opens popup -->
+<!--     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
+
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script> -->
+    <!-- JS here -->
+    <script src="{% static 'friendindeed/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/popper.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/ajax-form.js' %}"></script>
+    <script src="{% static 'friendindeed/js/waypoints.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/scrollIt.js' %}"></script>
+    <script src="{% static 'friendindeed/js/jquery.scrollUp.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/wow.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/nice-select.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/jquery.slicknav.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/plugins.js' %}"></script>
+    <script src="{% static 'friendindeed/js/gijgo.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/slick.min.js' %}"></script>
+   
+
+    
+    <!--contact js-->
+    <script src="{% static 'friendindeed/js/contact.js' %}"></script>
+    <script src="{% static 'friendindeed/js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/jquery.form.js' %}"></script>
+    <script src="{% static 'friendindeed/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'friendindeed/js/mail-script.js' %}"></script>
+
+
+    <script src="js/main.js"></script>
+    <script>
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+             rightIcon: '<span class="fa fa-caret-down"></span>'
+         }
+        });
+    </script>
+</body>
+
+</html>

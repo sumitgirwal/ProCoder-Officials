@@ -1,0 +1,57 @@
+{% load static %}
+
+<!-- SweetAlert2 -->
+<script src="{% static 'plugins/sweetalert2/sweetalert2.min.js' %}"></script>
+
+<script type="text/javascript">
+ 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 4000,
+      
+    });
+
+</script>
+
+{% if messages %}
+  {% for message in messages %}
+    {% if message.tags == 'success' %}
+        <script type="text/javascript"> 
+          Toast.fire({
+        type: 'success',
+        title: '&nbsp;<i style="font-size:1.0rem;">{{message}}</i>'
+      })
+    </script> 
+    {% elif message.tags == 'info' %}
+        <script type="text/javascript"> 
+          Toast.fire({
+        type: 'info',
+        title:  '&nbsp;<i style="font-size:1.0rem;">{{message}}</i>'
+      })
+    </script> 
+    {% elif message.tags == 'warning' %}
+       <script type="text/javascript"> 
+          Toast.fire({
+        type: 'warning',
+        title:  '&nbsp;<i style="font-size:1.0rem;">{{message}}</i>'
+      })
+    </script> 
+    {% elif message.tags == 'error' %}
+        <script type="text/javascript"> 
+          Toast.fire({
+        type: 'error',
+        title:  '&nbsp;<i style="font-size:1.0rem;">{{message}}</i>'
+      })
+    </script> 
+    {% elif message.tags == 'debug' %}
+       <script type="text/javascript"> 
+          Toast.fire({
+        type: 'question',
+        title:  '&nbsp;<i style="font-size:1.0rem;">{{message}}</i>'
+      })
+    </script> 
+    {% endif %}   
+  {% endfor %}
+{% endif %}

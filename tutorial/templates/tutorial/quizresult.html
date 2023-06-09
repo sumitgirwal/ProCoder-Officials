@@ -1,0 +1,219 @@
+{% extends 'tutorial/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | Quiz Result{% endblock %}
+{% block navbar %}{% include 'tutorial/usernavbar.html' %}{% endblock %}
+{% block card_title %}Quiz{%  endblock %}
+{% block card_info %}{{quiz.quiz_name}}{%  endblock %}
+{% block body %}
+{% if qnas %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-tasks fa-sm"></i> Quiz Information  
+                </h3>
+            </div>  
+            {% for qna, score,choice in ziped_data %} 
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="callout callout-danger">
+                    <h5>{{forloop.counter}}.{{qna.question}}</h5>
+                   {% if score == None %}
+                      <p><b>Answer : {{qna.answer}}</b></p><br>
+                      <div class="row">
+                        <div class="col sm-6">
+                          <p>A. {{qna.option_1}}</p> 
+                        </div>
+                        <div class="col sm-6">
+                          <p>B. {{qna.option_2}}</p> 
+                        </div>
+                      </div>
+                       <div class="row">
+                        <div class="col sm-6">
+                          <p>C. {{qna.option_3}}</p> 
+                        </div>
+                        <div class="col sm-6">
+                           <p>D. {{qna.option_4}}</p>
+                        </div>
+                      </div>                
+                {% elif score == True %}
+                  <p><b>Answer : {{qna.answer}}</b></p> 
+                  {% if qna.option_1 == choice %}
+                      <div class="row">
+                        <div class="col sm-6">
+                         <p><b style="color: green;">A. {{qna.option_1}}&nbsp;<small>- (correct)</small></b></p>
+                        </div>
+                        <div class="col sm-6">
+                          <p>B. {{qna.option_2}}</p> 
+                        </div>
+                      </div>
+                       <div class="row">
+                        <div class="col sm-6">
+                          <p>C. {{qna.option_3}}</p> 
+                        </div>
+                        <div class="col sm-6">
+                           <p>D. {{qna.option_4}}</p>
+                        </div>
+                      </div>     
+                  {% elif qna.option_2 == choice %}
+                    <div class="row">
+                        <div class="col sm-6">
+                         <p>A. {{qna.option_1}}</p>
+                        </div>
+                        <div class="col sm-6">
+                          <p><b style="color: green;">B. {{qna.option_2}}&nbsp;<small>- (correct)</small></b></p> 
+                        </div>
+                      </div>
+                       <div class="row">
+                        <div class="col sm-6">
+                          <p>C. {{qna.option_3}}</p> 
+                        </div>
+                        <div class="col sm-6">
+                           <p>D. {{qna.option_4}}</p>
+                        </div>
+                      </div>
+                  {% elif qna.option_3 == choice %}
+                   <div class="row">
+                        <div class="col sm-6">
+                         <p>A. {{qna.option_1}} </p>
+                        </div>
+                        <div class="col sm-6">
+                          <p>B. {{qna.option_2}}</p> 
+                        </div>
+                      </div>
+                       <div class="row">
+                        <div class="col sm-6">
+                          <p><b style="color: green;">C. {{qna.option_3}}&nbsp;<small>- (correct)</small></b></p> 
+                        </div>
+                        <div class="col sm-6">
+                           <p>D. {{qna.option_4}}</p>
+                        </div>
+                      </div>
+                 
+                  {% elif qna.option_4 == choice %}
+                  <div class="row">
+                        <div class="col sm-6">
+                         <p>A. {{qna.option_1}} </p>
+                        </div>
+                        <div class="col sm-6">
+                          <p>B. {{qna.option_2}}</p> 
+                        </div>
+                      </div>
+                       <div class="row">
+                        <div class="col sm-6">
+                          <p> C. {{qna.option_3}} </p> 
+                        </div>
+                        <div class="col sm-6">
+                           <p><b style="color: green;">D. {{qna.option_4}}&nbsp;<small>- (correct)</small></b></p>
+                        </div>
+                      </div>                  
+                  {% endif %}
+
+                {% elif score == False %}    
+                <p><b>Answer : {{qna.answer}}</b></p>              
+                  
+                  
+                 {% if qna.option_1 == choice %}
+                      <div class="row">
+                        <div class="col sm-6">
+                         <p><b style="color: red;">A. {{qna.option_1}}&nbsp;&nbsp;<small>- (wrong)</small></b></p>
+                        </div>
+                        <div class="col sm-6">
+                          <p>B. {{qna.option_2}}</p> 
+                        </div>
+                      </div>
+                       <div class="row">
+                        <div class="col sm-6">
+                          <p>C. {{qna.option_3}}</p> 
+                        </div>
+                        <div class="col sm-6">
+                           <p>D. {{qna.option_4}}</p>
+                        </div>
+                      </div>     
+                  {% elif qna.option_2 == choice %}
+                    <div class="row">
+                        <div class="col sm-6">
+                         <p>A. {{qna.option_1}}</p>
+                        </div>
+                        <div class="col sm-6">
+                          <p><b style="color: red;">B. {{qna.option_2}}&nbsp;<small>- (wrong)</small></b></p> 
+                        </div>
+                      </div>
+                       <div class="row">
+                        <div class="col sm-6">
+                          <p>C. {{qna.option_3}}</p> 
+                        </div>
+                        <div class="col sm-6">
+                           <p>D. {{qna.option_4}}</p>
+                        </div>
+                      </div>
+                  {% elif qna.option_3 == choice %}
+                   <div class="row">
+                        <div class="col sm-6">
+                         <p>A. {{qna.option_1}} </p>
+                        </div>
+                        <div class="col sm-6">
+                          <p>B. {{qna.option_2}}</p> 
+                        </div>
+                      </div>
+                       <div class="row">
+                        <div class="col sm-6">
+                          <p><b style="color: red;">C. {{qna.option_3}}&nbsp;<small>- (wrong)</small></b></p> 
+                        </div>
+                        <div class="col sm-6">
+                           <p>D. {{qna.option_4}}</p>
+                        </div>
+                      </div>
+                 
+                  {% elif qna.option_4 == choice %}
+                  <div class="row">
+                        <div class="col sm-6">
+                         <p>A. {{qna.option_1}} </p>
+                        </div>
+                        <div class="col sm-6">
+                          <p>B. {{qna.option_2}}</p> 
+                        </div>
+                      </div>
+                       <div class="row">
+                        <div class="col sm-6">
+                          <p> C. {{qna.option_3}} </p> 
+                        </div>
+                        <div class="col sm-6">
+                           <p><b style="color: red;">D. {{qna.option_4}}&nbsp;<small>- (wrong)</small></b></p>
+                        </div>
+                      </div>                  
+                  {% endif %}
+
+
+                {% endif %}  
+
+                    
+                </div>
+            </div>
+            <!-- /.card-body -->
+            {% endfor %}
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+<br>
+<hr>
+<div class="row justify-content-md-center">
+      <div class="col col-lg-5">
+        <form action="" method="POST">{% csrf_token %}
+          <button  type="submit" class="btn btn-warning btn-lg btn-block">Back</button> 
+        </form>
+      </div>
+</div>
+<hr>
+{% else %}
+  <h1 style="font-family: monospace;text-align: center;padding-top: 8%;">Sorry, We are working on this....<span class="badge badge-danger">:(</span></h1>
+  <h4 style="font-family: cursive;text-align: center;padding-top: 8%;"><a href="{% url 'index' %}" class="btn btn-warning">Back</a></h4>
+{% endif %}
+
+{% endblock %}
+
+

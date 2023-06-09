@@ -1,0 +1,54 @@
+{% extends 'friendindeed/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder |All Users {% endblock %}
+{% block page_title %}All{% endblock %}
+{% block page_body %}Users{% endblock %}
+{% block page_total %}{{total_user_count}}{% endblock %}
+{% block body %}
+ 
+<form method="get" >
+ <div class="form-row" style="padding-right: 20%;">
+  <div class="form-group col-md-3">
+  {{userfilter.form.full_name}}
+  </div>
+  <div class="form-group col-md-1">
+  <button class="btn btn-outline-success" type="submit" >Search</button>    
+  </div>
+</div>
+</form>
+
+<br>
+{% if users %}
+<div class="card card-solid" style="background-color: #2e2e2e;">
+  <div class="card-body pb-0">
+    <div class="row" style="text-align: center;">
+      {% for i,check_request in users  %}
+        <div class="col-12 col-sm-6 col-md-4 ">
+          <div class="card bg-dark">
+            <div class="card-body"><br>
+              <img src="{{i.pic.url}}" alt="" class="img" ><br>
+              <h6  style="color:#a8a8a8;"> @{{i.user.username}} </h6>
+              <h2 class="lead" style="color:#c2c2c2;"><b>{{i.first_name|title}} {{i.last_name|title}}</b></h2>
+            </div>
+            <form method="POST">{% csrf_token %}
+                <div class="card-footer">
+                  {% if check_request %}
+                   <button type="submit" value={{i.id}} name="user" class="btn btn-sm btn-outline-success active" title="Send Request" aria-pressed="true" disabled=""><i class="fas fa-comment-dots"></i> Send Request</button>
+              {% else %}
+                 <button type="submit" value={{i.id}} name="user" class="btn btn-sm btn-outline-success" title="Send Request"><i class="fas fa-comment-dots"></i> Send Request</button> 
+              {% endif %}
+              <a href="{% url 'tutorial:userprofile' i.id %}" class="btn btn-sm btn-outline-primary" target="_blank">
+              <i class="fas fa-user"></i> View Profile</a>
+            </div>
+            </form>
+          
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% else %}
+<h5 style="text-align: center;color:#bebebe;">Sorry Query Not Found!<span class="badge badge-primary">Research</span></h5>
+{% endif %}
+{% endblock %}

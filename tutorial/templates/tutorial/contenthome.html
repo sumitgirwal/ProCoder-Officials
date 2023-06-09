@@ -1,0 +1,155 @@
+{% extends 'tutorial/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | My Tutorial{% endblock %}
+
+{% block navbar %}{% include 'tutorial/usernavbar.html' %}{% endblock %}
+{% block card_title %}
+  <a href="{% url 'tutorial:courseview' course.id %}">
+      <b style="font-family: Lucida Sans;font-size: 1.1rem;color:#00688b;">{{course.course_name|title}}</b>
+    </a>
+{%  endblock %}
+{% block body %}
+{% if contents %}
+  
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-9">
+       
+        {% for i in contents.object_list %}
+         <h4 class="my-4" style="color:#999999;">{{i.topic.topic_name|title}}
+          <small style="font-size: 0.7rem;">({{course.course_name|title}})</small>
+        </h4>
+        <!-- Blog Post -->
+        <div class="card mb-4">
+       <h5 class="card-header">
+          <div class="row">
+              <div class="col sm-8">
+                {{i.topic.topic_name|title}}
+              </div>
+              <div class="col sm-4 text-right">
+                <small><span class="badge badge-info" title="Viewed"><i class="fas fa-eye"></i>&nbsp;{{i.view}}&nbsp;</span></small>
+                
+              </div>
+          </div>
+        
+        </h5>
+          <div class="card-body">
+            <!-- <h2 class="card-title">Post Title</h2> -->
+            <p class="card-text">{{i.content_data|safe}}
+
+            </p>
+          </div>
+          <div class="card-footer text-muted" style="background-color:  #e8e8e8;">
+            Published on {{i.modify_date}}&nbsp;&nbsp;
+            By<a href="{% url 'tutorial:userprofile' i.course.user.id %}" target="_blank" > @{{i.course.user.user.username}}</a>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- Pagination -->
+         <nav aria-label="Contacts Page Navigation" style="background-color: #f0f0f0;">
+            <ul class="pagination justify-content-center m-0">
+                {% if contents.has_previous %}
+                     <li class="page-item "><a class="page-link" href="?page={{contents.previous_page_number}}">Previous</a></li>
+                {% endif %}
+                {% for pg in contents.paginator.page_range %}
+                     {% if contents.number == pg %}
+                            <li class="page-item active"><a href="?page={{ pg }}" class="page-link">{{ pg }}</a></li>
+                     {% else %}
+                            <li class="page-item "><a href="?page={{ pg }}" class="page-link">{{ pg }}</a></li>
+                     {% endif %}                   
+
+                {% endfor %}
+                {% if contents.has_next %}
+                     <li class="page-item "><a class="page-link" href="?page={{contents.next_page_number}}">Next</a></li>
+                {% endif %}
+            
+            </ul>
+          </nav>
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+
+         
+        <!-- Side Widget -->
+          <div class="accordion" id="accordionExample">
+       
+                {% for pg in topic_list %}
+                 
+                      {% if forloop.counter == page_number %}
+                              <div class="card my-3" style="box-shadow: 5px 5px 5px 5px #b0b0b0;background-color:  #f2f2f2;">
+                          <div class="card-header" id="headingTwo">
+                            <h2 class="mb-1">
+                              <button class="btn btn-lg  collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo{{forloop.counter}}" aria-expanded="true" style="font-family:Lucida Sans;color:#104e8b;">
+                                {{pg.topic.topic_name|title}}
+                              </button>
+                            </h2>
+                          </div>
+                          <div id="collapseTwo{{forloop.counter}}" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">                           
+                          </div>
+                        </div>
+                     {% else %}
+                            <div class="card my-4">
+                          <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo{{forloop.counter}}" aria-expanded="false" aria-controls="collapseTwo" style="font-family:Lucida Sans;">
+                                 {{pg.topic.topic_name|title}}
+                              </button>
+                            </h2>
+                          </div>
+                          <div id="collapseTwo{{forloop.counter}}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" >
+                            <div class="card-body text-center">
+                               <a href="?page={{ forloop.counter }}" class="btn btn-warning btn-sm">Visit Now !</a>
+                            </div>
+                          </div>
+                        </div>
+
+                     {% endif %}
+                {% endfor %}
+                 
+ 
+          </div>
+
+        
+      </div>
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+<br>
+{% else %}
+<h1 style="font-family: monospace;text-align: center;padding-top: 8%;">Sorry, We are working on this....<span class="badge badge-danger">:(</span></h1>
+        <h4 style="font-family: cursive;text-align: center;padding-top: 8%;"><a href="{% url 'tutorial:allcourse' %}" class="btn btn-warning">Back</a></h4>
+{% endif %}
+
+ 
+
+
+
+
+ 
+
+
+{% endblock %}

@@ -1,0 +1,313 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>ProCoder | ProBlog</title>
+  <link rel = "icon" href ="https://procodersp.blogspot.com/favicon.ico" type = "image/x-icon"> 
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'blog/vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="{% static 'blog/vendor/fontawesome-free/css/all.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'blog/css/agency.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">ProCoder</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ml-auto">
+         <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#home">Home</a>
+          </li>
+             {% if not request.user.is_authenticated %}
+           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'tutorial:login_page' %}">Login</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'tutorial:register_page' %}">Register</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'blog:userpost' %}">Userdashboard</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'tutorial:logout_page' %}">Logout</a>
+          </li>
+          {% endif %}
+          
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="{% url 'tutorial:feedback_page' %}">Feedback</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#portfolio">Posts</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+          </li>
+        
+          
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="masthead" id="home"> 
+    <div class="container">
+      <div class="intro-text">
+        <div class="intro-lead-in" style="font-family: Gabriola;color:#a8a8a8;">Welcome To Our Blogger!</div>
+        <div class="intro-heading " style="font-family: Calibri;">Pro Blog !</div>
+        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="{% url 'blog:allpost' %}">More Posts</a>
+      </div>
+    </div>
+  </header>
+
+
+
+  <!-- Portfolio Grid -->
+  <section class="bg-light page-section" id="portfolio">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading text-uppercase" style="font-family: Lucida Sans;color: #a8a8a8;">Recent {{posts.count}} Posts</h2>
+          <h3 class="section-subheading text-muted">There are some posts.</h3>
+        </div>
+      </div>
+      <div class="row">
+        {% for i in posts %}
+        <div class="col-md-4 col-sm-6 portfolio-item">
+          <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1{{i.id}}">
+            <div class="portfolio-hover">
+              <div class="portfolio-hover-content">
+                <i class="fas fa-plus fa-3x"></i>
+              </div>
+            </div>
+            <img class="img-fluid" src="{{i.post_pic.url}}" alt="">
+          </a>
+          <div class="portfolio-caption">
+            <h4>{{i.post_title|title}}</h4>
+            
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </section>
+
+
+
+<!-- Portfolio Modals -->
+  {% for i in posts %}
+  <!-- Modal 1 -->
+  <div class="portfolio-modal modal fade" id="portfolioModal1{{i.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+          <div class="lr">
+            <div class="rl"></div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <div class="modal-body">
+                <!-- Project Details Go Here -->
+                <h2  style="font-family: Calibri;color:#5c5c5c;">{{i.post_title|title}}</h2>
+               
+                <img class="img-fluid d-block mx-auto" src="{{i.post_pic.url}}" alt="">
+                <p style="font-family: Calibri;">{{i.post_content|safe}}</p>
+                <ul class="list-inline" style="font-family: Calibri;color:#5c5c5c;">
+                  <li>Date: {{i.created_date}}</li>
+                  <li>By: @{{i.user.user.username}}</li>
+                 
+                </ul>
+                <button class="btn btn-primary" data-dismiss="modal" type="button">
+                  <i class="fas fa-times"></i>
+                  Close Post</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Services -->
+  <section class="page-section" id="services">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading text-uppercase">Services</h2>
+          <h3 class="section-subheading text-muted">Give us your time and you will be filled with confidence of knowledge.</h3>
+        </div>
+      </div>
+      <div class="row text-center" style="font-family: Verdana;color: #949494;">
+        <div class="col-md-3">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-mobile-alt fa-stack-1x fa-inverse"></i>
+          </span>
+          <h4 class="service-heading">Learning Way</h4>
+          <p class="text-muted" style="color: #8c8c8c;font-family:Calibri;">
+You can use any device !.</p>
+        </div>
+        <div class="col-md-3">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+          </span>
+          <h4 class="service-heading">Practice</h4>
+          <p class="text-muted" style="color: #8c8c8c;font-family:Calibri;">We will engage you with resourseful communications like exam updates, tips with useful messages!.</p>
+        </div>
+        <div class="col-md-3">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+          </span>
+          <h4 class="service-heading">Web Security</h4>
+          <p class="text-muted" style="color: #8c8c8c;font-family:Calibri;">higher security and authentication.</p>
+        </div>
+        <div class="col-md-3">
+          <span class="fa-stack fa-4x">
+            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+            <i class="fas fa-question fa-stack-1x fa-inverse"></i>
+          </span>
+          <h4 class="service-heading">Question & Answer</h4>
+          <p class="text-muted" style="color: #8c8c8c;font-family:Calibri;">We will clear your all doubts and queries.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+ 
+  <!-- Contact -->
+  <section class="page-section" id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading text-uppercase">Contact Us</h2>
+          <h3 class="section-subheading text-muted">Be member of our awesome famliy.</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+              <div class="clearfix"></div>
+              <div class="col-lg-12 text-center">
+                <div id="success"></div>
+                <a href="{% url 'tutorial:login_page' %}" class="btn btn-primary btn-xl text-uppercase" style="background-color: :  #eed5b7">Login</a>
+                <a href="{% url 'tutorial:register_page' %}" class="btn btn-primary btn-xl text-uppercase">Register</a>
+                <a href="{% url 'tutorial:feedback_page' %}" class="btn btn-primary btn-xl text-uppercase">Feedback</a>
+                
+              </div>
+            </div>
+        
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <span class="copyright">Copyright &copy; 2020 ProCoder | All rights reserved.
+
+        </div>
+        <div class="col-md-4">
+          <ul class="list-inline social-buttons">
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fab fa-github"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fab fa-linkedin"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fab fa-google"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <ul class="list-inline quicklinks">
+            <li class="list-inline-item">
+              <a href="#">Privacy Policy</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">Terms of Use</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'blog/vendor/jquery/jquery.js' %}"></script>
+  <script src="{% static 'blog/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'blog/vendor/jquery-easing/jquery.easing.js' %}"></script>
+
+  <!-- Contact form JavaScript -->
+  <script src="{% static 'blog/js/jqBootstrapValidation.js' %}"></script>
+  <script src="{% static 'blog/js/contact_me.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'blog/js/agency.js' %}"></script>
+
+</body>
+
+</html>

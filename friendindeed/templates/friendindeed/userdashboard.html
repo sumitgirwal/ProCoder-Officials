@@ -1,0 +1,194 @@
+{% extends 'friendindeed/userbase.html' %}
+{% load static %}
+{% block title %}ProCoder | Users Chat {% endblock %}
+{% block page_title %}Chat{% endblock %}
+{% block page_body %}Box{% endblock %}
+{% block page_total %}{{member.count}}{% endblock %}
+{% block body %}
+ <!-- Messages Dropdown Menu -->
+      
+       
+        <br>  
+        <div class="row">
+           {% if check %} 
+          <div class="col-md-9">
+            <!-- DIRECT CHAT DANGER -->
+            <div class="card  direct-chat direct-chat-dark" style="background-color: #363636;color:white;">
+               <form method="GET">
+              <div class="card-header">
+                <h3 class="card-title">{{chat_user.user.username|title}}</h3>
+
+                <div class="card-tools">
+                  
+                     <button type="submit" class="btn btn-tool" ><i class="fas fa-sync-alt"></i></button>      
+                
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                  
+                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                  </button>
+                </div>
+                
+              </div>
+               </form>
+              <!-- /.card-header -->
+              <div class="card-body"  style="background-color: #2e2e2e;">
+                <!-- Conversations are loaded here -->
+                <div class="direct-chat-messages">
+                    <!-- Message. Default to the left -->
+                  {% for i in messages %}
+                    {% if i.user == user %}
+                    
+                     
+                    <div class="direct-chat-msg right">
+                      <div class="direct-chat-infos clearfix">
+                        <span class="direct-chat-name float-right" style="color:#a3a3a3;">{{i.user.user.username|title}}</span>
+                        <span class="direct-chat-timestamp float-left">{{i.created_date}}</span>
+                      </div>
+                      <img class="direct-chat-img" src="{{i.user.pic.url}}" alt="Message User Image">
+                      <div class="direct-chat-text">
+                        {{i.message}}
+                      </div>
+                    </div>
+                    {% else %}
+                    <div class="direct-chat-msg">
+                      <div class="direct-chat-infos clearfix">
+                        <span class="direct-chat-name float-left" style="color:#a3a3a3;">{{i.user.user.username|title}}</span>
+                        <span class="direct-chat-timestamp float-right">{{i.created_date}}</span>
+                      </div>
+                      <img class="direct-chat-img" src="{{i.user.pic.url}}" alt="Message User Image">
+                      <div class="direct-chat-text">
+                        {{i.message}}
+                      </div>                     
+                    </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+               
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer"  style="background-color: #212121;">
+                <form action="" method="POST">{% csrf_token %}
+                  <div class="input-group">
+                    <input type="text" name="message" placeholder="Type Message ..." class="form-control" style="background-color: #dedede;" required="">
+                    <span class="input-group-append">
+                      <button type="submit" class="btn btn-dark">Send</button>
+                    </span>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card-footer-->
+            </div>
+            <!--/.direct-chat -->
+          </div>
+          <!-- /.col -->
+          {% else %}
+           <div class="col-md-9">
+            <br><br>
+        <h5 style="text-align:center;color:#bebebe;">Sorry, You haven't friends yet!<a href="{% url 'friendindeed:allusers' %}"><span class="badge badge-primary">Click to check members</span></a></h5>
+      </div>
+        {% endif %}
+           <div class="col-md-3">
+
+        <a  class="btn btn-outline-light btn-block" data-toggle="dropdown" href="#">
+          <i class="far fa-comments fa-lg"></i>
+          <span class="badge badge-danger navbar-badge">{{total_messages}}</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"  style="background-color:#5e5e5e;"><a href="#" class="dropdown-item dropdown-footer" style="'color: #ababab">All Messages</a>
+          {% for i,j in user_messages %}
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <!-- Message Start -->
+            <div class="media">
+              <img src="{{i.pic.url}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                <form method="POST">{% csrf_token %}
+                <div class="media-body">
+                <h6 class="dropdown-item-title">
+                   @{{i.user.username}}
+                </h6>
+                <p class="text-sm">{{j.message}}</p>
+                <p class="text-sm">
+                    <button type="submit" class="btn btn-outline-warning btn-sm" name="value" value="{{j.id}}" >Okay</button>
+                </p>
+                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>{{i.created_date}}</p>
+                </div>
+              </form>
+            </div>
+             
+          </a>
+          {% endfor %}
+        </div>
+        <br>
+         
+            {% for i,j in friend_request %}
+            <div class="card">
+              <div class="card-body" style="background-color: #363636;color:white;">
+                 <div class="direct-chat-msg">
+                    <img class="direct-chat-img" src="{{i.pic.url}}" alt="Message User Image">                    
+                    <div class="text-right" style="border-color: #363636;background-color: #363636;color:white;">
+                      <form method="POST">{% csrf_token %}
+                        <small>@{{i.user.username|title}}&nbsp;</small>
+                      <button type="submit" title="Allow To Start Conversations." class="btn btn-outline-success btn-sm" name="allow" value="{{j}}">Accept</button> 
+                                <button type="submit" title="Deny Friend Request." class="btn btn-outline-danger btn-sm" name="deny" value="{{j}}">Deny</button> 
+                      </form>                        
+                    </div>
+                  </div>           
+              </div>
+            </div>
+            {% endfor %}
+            {% for i,j in user_request %}
+            <div class="card">
+              <div class="card-body" style="background-color: #363636;color:white;">
+                 <div class="direct-chat-msg">
+                    <img class="direct-chat-img" src="{{i.pic.url}}" alt="Message User Image">                   
+                    <div class="text-right" style="border-color: #363636;background-color: #363636;color:white;">
+                         <form method="POST">{% csrf_token %}
+                        <small>@{{i.user.username|title}}&nbsp;</small>
+                      <button type="submit" title="Waiting for accepting." class="btn btn-outline-light btn-sm" name="cancel" value="{{j}}">Cancel</button> 
+                      </form>       
+
+                    </div>
+                  </div>           
+              </div>
+            </div>
+            {% endfor %}
+           </div>
+        </div>
+        
+        
+
+
+{% if member %}
+<h1 style="color:#707070; text-align: center;">All My Friends</h1>
+<div class="card card-solid" style="background-color: #2e2e2e;">
+  <div class="card-body pb-0">
+    <div class="row" style="text-align: center;">
+      {% for i,j in member  %}
+        <div class="col-12 col-sm-6 col-md-4 ">
+          <div class="card bg-dark">
+            <div class="card-body"><br>
+              <img src="{{i.pic.url}}" alt="" class="img"><br>
+              <h6 style="color:#a8a8a8;">@{{i.user.username}}</h6>
+              <h2 class="lead" style="color:#c2c2c2;"><b>{{i.first_name|title}} {{i.last_name|title}}</b></h2>
+            </div>
+            <form method="POST">{% csrf_token %}
+              <div class="card-footer">
+              <a href="{% url 'friendindeed:userdashboard' j %}" class="btn btn-sm btn-outline-success" target="_blank">
+              <i class="fas fa-comments"></i> Chat</a>
+              <button type="submit" class="btn btn-outline-danger btn-sm" name="remove" value="{{j}}"><i class="fas fa-minus-circle"></i> Remove</a></button>
+            </div>
+            </form>
+            
+          </div>
+        </div>
+        
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% else %}
+<h5 style="text-align: center;color:#bebebe;">Sorry Query Not Found!<span class="badge badge-primary">Research</span></h5>
+{% endif %}
+
+ 
+{% endblock %}
